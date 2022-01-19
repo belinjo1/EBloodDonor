@@ -2,18 +2,6 @@ const User = require('./../models/userModel');
 const catchAsync = require('./../utils/catchAsync');
 
 
-exports.checkId = (req, res, next, val) => {
-    const user = users.find(el => el._id == val);
-    if (!user) {
-        return res.status(404).json({
-            status: 'fail',
-            message: 'Invalid Id'
-        })
-    }
-    next();
-}
-
-
 exports.getAllUsers = catchAsync(async (req, res, next) => {
 
 
@@ -37,9 +25,14 @@ exports.createUser = catchAsync(async (req, res, next) => {
 });
 
 exports.getUser = catchAsync(async (req, res, next) => {
-    res.status(500).json({
-        status: 'error',
-        message: 'Not implemented'
+
+    const user = await User.findById(req.params.id);
+
+    res.status(200).json({
+        status: 'success',
+        message: {
+            user: user
+        }
     });
 });
 
