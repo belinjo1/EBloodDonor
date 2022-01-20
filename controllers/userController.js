@@ -44,8 +44,11 @@ exports.editUser = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteUser = catchAsync(async (req, res, next) => {
+
+    const user = await User.findByIdAndDelete(req.params.id);
+
     res.status(500).json({
         status: 'error',
-        message: 'Not implemented'
+        message: 'User Deleted!'
     })
 });
