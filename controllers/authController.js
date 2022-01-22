@@ -13,6 +13,18 @@ const signToken = id => {
     });
 };
 
+const createSendToken = (user, statusCode, res) => {
+    const token = signToken(user._id);
+    res.status(201).json({
+        status: 'success',
+        token,
+        data: {
+            user
+        }
+    });
+
+};
+
 
 
 exports.signup = catchAsync(async (req, res, next) => {
@@ -27,15 +39,9 @@ exports.signup = catchAsync(async (req, res, next) => {
         bloodtype: req.body.bloodtype
     });
 
-    const token = signToken(newUser._id);
+    createSendToken(newUser, 201, res);
 
-    res.status(201).json({
-        status: 'success',
-        token,
-        data: {
-            user: newUser
-        }
-    });
+
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -53,11 +59,7 @@ exports.login = catchAsync(async (req, res, next) => {
     }
 
     // 3) If everything ok, send token to client
-    const token = signToken(user._id);
-    res.status(201).json({
-        status: 'success',
-        token
-    });
+    createSendToken(user, 201, res);
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
@@ -166,11 +168,30 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 
     console.log('passed initialising');
     //4 log the user in, send jwt
-    const token = signToken(user._id);
+    createSendToken(user, 201, res);
+});
 
-    res.status(201).json({
-        status: 'success',
-        token
-    });
+exports.updatePassword = catchAsync(async (req, res, next) => {
+    // get user from collection
+    const { currentPassword, newPassword, confirmNewPassword } = req.body;
+    const user = await User.findById(req.user._id).select('+password');
+    if (!user) {
+        next(new AppError('User Does not exist anymore!', 400));
+    }
+
+    //check if posted current password is correct
+    const validatePassword = await user.correctPassword(currentPassword, user.password);
+    console.log(validatePassword);
+    //if so update password
+    if (validatePassword) {
+        user.password = newPassword;
+        user.passwordConfirm = confirmNewPassword;
+        user.save();
+    }
+    else {
+        return next(new AppError('Given password is not the same with current password!', 403));
+    }
+    //log user in send jwt
+    createSendToken(user, 201, res);
 
 });

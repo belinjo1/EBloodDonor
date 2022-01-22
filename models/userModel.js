@@ -59,7 +59,7 @@ userSchema.pre('save', async function (next) {
 })
 
 userSchema.pre('save', function (next) {
-    if (!this.isModified('password') || this.isNew()) return next();
+    if (!this.isModified('password') || this.isNew) return next();
 
     this.passwordChangedAt = Date.now() - 1000; //ensures that token creates a second after passwordchangedAT
     next();
@@ -81,6 +81,7 @@ userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
     //notchanged!
     return false;
 };
+
 
 userSchema.methods.createPasswordResetToken = function () {
     const resetToken = crypto.randomBytes(32).toString('hex');
