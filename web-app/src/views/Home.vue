@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="main">
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <div id="announcements">
@@ -58,5 +58,9 @@ export default {
   justify-content: center;
   flex-wrap: wrap;
   padding: 20px;
+}
+
+.main{
+  margin: 80px 0;
 }
 </style>

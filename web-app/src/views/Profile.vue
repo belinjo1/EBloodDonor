@@ -43,7 +43,7 @@
 }
 .profile{
   /* border: dashed 2px orange; */
-  margin-bottom: 80px;
+  margin: 80px 0;
   
 }
 .profile-header{
