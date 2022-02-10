@@ -1,5 +1,6 @@
 <template>
     <div>
+      <router-link :to="{ name: 'AnnouncementShow', props: { id: announcement.id } }">
         <div class="card">
           <div class="card-header">
             <h2 class="title">{{announcement.title}}</h2>
@@ -20,6 +21,7 @@
               <button>Apply</button>
            </div>
         </div>
+      </router-link>
     </div>
 </template>
 
@@ -32,33 +34,50 @@ export default {
 </script>
 
 <style scoped>
+
+a{
+  text-decoration: none;
+  color: unset;
+}
 .card{
-  background-color: rgb(232, 235, 236);
+  background: linear-gradient(120deg, rgb(231, 235, 238) 0%, rgb(229, 232, 235) 100%);
   border-radius: 15px;
   margin: 10px;
-  padding: 10px;
+  /* padding: 10px; */
   width: 100%;
   max-width: 380px;
+  box-sizing: border-box;
   box-shadow: 1px 2px 8px 1px rgba(0, 0, 0, 0.15);
   border: solid 1px rgba(204, 204, 204, 0.39);
-  min-height: 244px;
+  transition: 0.3s;
+  /* min-height: 244px; */
+}
+.card:hover{
+  transform: scale(1.035);
 }
 .card>*{
   padding: 10px;
 }
 .card-body{
   display: flex;
+  flex-direction: column;
   align-items: center;
+  background: rgb(239, 243, 247);
+  border-top: solid 1px rgb(224, 224, 224);
+  border-bottom: solid 1px rgb(224, 224, 224);
+}
+
+.card-body p {
+  padding: 15px 0;
 }
 
 .blood-type{
     /* border: dashed 1px green; */
     border-radius: 10px;
-    background-color: rgb(206, 212, 214);
+    background-color: rgb(225, 222, 236);
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 80px;
     min-height: 80px;
     padding: 10px 15px;
     margin: 5px;

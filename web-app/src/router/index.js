@@ -17,6 +17,14 @@ const routes = [
     // this generates a separate chunk (profile.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "profile" */ '../views/Profile.vue')
+  },
+  {
+    path: '/announcement',
+    name: 'AnnouncementShow',
+    // route level code-splitting
+    // this generates a separate chunk (announcement.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "announcement" */ '../views/AnnouncementShow.vue')
   }
 ]
 
