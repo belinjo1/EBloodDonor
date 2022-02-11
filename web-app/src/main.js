@@ -3,13 +3,46 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faBars, faHome, faUser, faUsers, faMapMarkerAlt, faHistory, faMedal, faPen, faDroplet, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { 
+  faBars,
+  faHome,
+  faUser,
+  faUsers,
+  faMapMarkerAlt,
+  faHistory,
+  faMedal,
+  faPen,
+  faDroplet,
+  faEnvelope,
+  faInfoCircle,
+  faAddressBook,
+  faBullhorn,
+  faCalendarCheck
+} from '@fortawesome/free-solid-svg-icons'
+
+const importedIcons = { 
+  faBars, 
+  faHome,
+  faUser,
+  faUsers,
+  faMapMarkerAlt,
+  faHistory,
+  faMedal,
+  faPen,
+  faDroplet,
+  faEnvelope,
+  faInfoCircle,
+  faAddressBook,
+  faBullhorn,
+  faCalendarCheck
+}
 
 Vue.config.productionTip = false
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
-library.add(faHome, faUser, faUsers, faMapMarkerAlt, faHistory, faMedal, faPen, faDroplet, faEnvelope, faBars)
+
+library.add(importedIcons)
 
 new Vue({
   router,

@@ -2,7 +2,7 @@
     <div>
         <div id="header">
             <div>
-                 <button class="sideBarButton">
+                 <button @click="toggleSideBar" class="sideBarButton" >
                     <font-awesome-icon :icon="['fas', 'bars']" />
                 </button>
             </div>
@@ -27,7 +27,13 @@
 </template>
 
 <script>
-export default {}
+export default {
+    methods:{
+        toggleSideBar(){
+            this.$store.dispatch('toggleSideBar')
+        }
+    }
+}
 </script>
 
 <style scoped>

@@ -36,9 +36,11 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 59%, rgba(255,255,255,0.83
   padding: 20px 0;
   text-decoration: none;
   font-size: 18pt;
+  transition: 0.5s;
 }
 #nav a:hover{
   background-color: rgb(168, 167, 167);
+  transition: 0.2s;
 }
 
 #nav a:first-child {
