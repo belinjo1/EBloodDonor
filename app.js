@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
+const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const userRouter = require('./Routes/userRoutes');
 const AppError = require('./utils/appError');
@@ -11,14 +12,24 @@ const app = express();
 //security
 app.use(helmet());
 
+var corsOptions = {
+    origin: 'http://localhost:8080',
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    credentials: true
+}
+
+//cors
+app.use(cors(corsOptions));
+
 //morgan, logger
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
 
+
 //security
 const Ratelimiter = rateLimit({
-    max: 50, //max 100 requests allowed per ip
+    max: 1000, //max 1000 requests allowed per ip
     windowMs: 60 * 60 * 1000, // 100 reqs for 1 hr
     message: 'To many requests from this ip, try again in 1 hr!'
 });

@@ -1,21 +1,21 @@
 <template>
-    <div id="sideBar" :class="(isOpen)?'sideBarOpen':'sideBarClosed'">
+    <div id="sideBar" :class="(sideBarOpen)?'sideBarOpen':'sideBarClosed'">
         <span class="closeBtn" @click="toggleSideBar()">×</span>
         <div class="main-links">
             <ul>
-                <li><router-link to="/"><font-awesome-icon icon="fa-solid fa-home" /> Home</router-link></li>
-                <li><router-link to="/about"><font-awesome-icon icon="fa-solid fa-circle-info" /> About</router-link></li>
-                <li><router-link to="/contact"><font-awesome-icon icon="fa-solid fa-address-book" /> Contact</router-link></li>
-                <li><router-link to="/profile"><font-awesome-icon icon="fa-solid fa-user" /> Profile</router-link></li>            
+                <li><router-link to="/"><font-awesome-icon :icon="['fas', 'home']" /> Home</router-link></li>
+                <li><router-link to="/about"><font-awesome-icon :icon="['fas', 'circle-info']" /> About</router-link></li>
+                <li><router-link to="/contact"><font-awesome-icon :icon="['fas', 'address-book']"/> Contact</router-link></li>
+                <li><router-link to="/profile"><font-awesome-icon :icon="['fas', 'user']" /> Profile</router-link></li>            
             </ul>
         </div>
 
-        <div class="admin-links">
+        <div v-if="isAdmin" class="admin-links">
             <ul>
             <h3 class="admin-panel-title">Admin Panel</h3>
-                <li><router-link to="/users"><font-awesome-icon icon="fa-solid fa-users" /> Users</router-link></li>
-                <li><router-link to="/announcements"><font-awesome-icon icon="fa-solid fa-bullhorn" /> Announcements</router-link></li>
-                <li><router-link to="/appointments"><font-awesome-icon icon="fa-solid fa-calendar-check" /> Appointments</router-link></li>
+                <li><router-link to="/admin/users"><font-awesome-icon :icon="['fas', 'users']" /> Users</router-link></li>
+                <li><router-link to="/admin/announcements"><font-awesome-icon :icon="['fas', 'bullhorn']" /> Announcements</router-link></li>
+                <li><router-link to="/admin/appointments"><font-awesome-icon :icon="['fas', 'calendar-check']" /> Appointments</router-link></li>
                 <!-- <li><router-link :to="{ name: Profile }">Profile</router-link></li> -->
             </ul>
         </div>
@@ -24,12 +24,10 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default{
-    computed: mapState({
-        isOpen: state => state.sideBarOpen
-    }),
+    computed: mapGetters(['sideBarOpen','isAdmin']),
     methods: mapActions(['toggleSideBar'])
 }
 </script>

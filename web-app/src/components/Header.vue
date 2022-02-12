@@ -17,9 +17,13 @@
             </div>
            
             <div>
-                <div class="register-login">
-                    <a>Register</a>
-                    <a>Login</a>
+                <div v-if="!isAuthenticated" class="register-login">
+                    <router-link to="/register"><button class="register-btn">Register</button></router-link>
+                    <router-link to="/login"><button class="login-btn">Login</button></router-link>
+                </div>
+
+                <div v-else class="logout">
+                    <button @click="logout" class="logout-btn">Logout <font-awesome-icon :icon="['fas', 'arrow-right-from-bracket']" /></button>
                 </div>
             </div>
         </div>
@@ -27,11 +31,18 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
+    computed: mapGetters(['isAuthenticated']),
     methods:{
         toggleSideBar(){
             this.$store.dispatch('toggleSideBar')
-        }
+        },
+        async logout() {
+            await this.$store.dispatch("LogOut");
+            this.$router.push("/login");
+        },
     }
 }
 </script>
@@ -113,7 +124,41 @@ export default {
     /*border: solid 1px red;*/
 }
 
-.register-login a {
+.register-btn,
+.login-btn {
+    padding: 10px 20px;
+    margin: 0 1px;
+    color: white;
+    text-decoration: none;
+    box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    border: none;
+    font-size: 11pt;
+    transition: 0.3s;
+}
+
+.register-btn {
+    background: linear-gradient(121deg, rgba(195,89,121,1) 18%, rgba(235,96,96,1) 100%);
+    border-radius: 8px 0 0 8px;
+    
+}
+
+.register-btn:hover {
+    background: linear-gradient(121deg, rgba(186,61,99,1) 18%, rgba(235,73,73,1) 100%);
+    border-radius: 8px 0 0 8px;
+}
+
+.login-btn {
+    background: linear-gradient(138deg, rgba(92,169,235,1) 0%, rgba(148,67,240,1) 100%);
+    border-radius: 0 8px 8px 0;
+}
+
+.login-btn:hover {
+    background: linear-gradient(138deg, rgba(65,152,227,1) 0%, rgba(124,38,222,1) 100%);
+    border-radius: 0 8px 8px 0;
+}
+
+.logout-btn {
     padding: 10px 20px;
     margin: 0 1px;
     color: white;
@@ -121,27 +166,13 @@ export default {
     box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transition: 0.3s;
-}
-
-.register-login a:first-child {
-    background: linear-gradient(121deg, rgba(195,89,121,1) 18%, rgba(235,96,96,1) 100%);
-    border-radius: 8px 0 0 8px;
-    
-}
-
-.register-login a:first-child:hover {
-    background: linear-gradient(121deg, rgba(186,61,99,1) 18%, rgba(235,73,73,1) 100%);
-    border-radius: 8px 0 0 8px;
-}
-
-.register-login a:last-child {
     background: linear-gradient(138deg, rgba(92,169,235,1) 0%, rgba(148,67,240,1) 100%);
-    border-radius: 0 8px 8px 0;
+    border-radius: 8px;
+    font-size: 11pt;
+    border: none;
 }
-
-.register-login a:last-child:hover {
+.logout-btn:hover {
     background: linear-gradient(138deg, rgba(65,152,227,1) 0%, rgba(124,38,222,1) 100%);
-    border-radius: 0 8px 8px 0;
 }
 
 </style>

@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from "vuex-persistedstate";
+import auth from "./modules/auth";
 
 Vue.use(Vuex)
 
@@ -8,9 +10,7 @@ export default new Vuex.Store({
     sideBarOpen: false
   },
   getters: {
-      g_sideBarOpen(state){
-          return state.sideBarOpen
-      }
+    sideBarOpen: (state) => state.sideBarOpen,
   },
   mutations: {
       TOGGLE_SIDE_BAR(state){
@@ -23,5 +23,8 @@ export default new Vuex.Store({
     }
   },
   modules: {
-  }
+    auth
+  },
+  plugins: [createPersistedState()]
+  
 })

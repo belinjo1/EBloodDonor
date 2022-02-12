@@ -5,15 +5,15 @@
       <div class="header-top">
         <img src="../assets/avatar.png" class="profile-image" alt="profile icon">
         <div class="basic-info">
-          <h2 class="name">Filan Fisteku</h2>
+          <h2 class="name">{{StateUser.name}}</h2>
           <!-- <img src="../assets/star.png" style="background: linear-gradient(121deg, rgba(153,111,94,1) 0%, rgba(163,148,141,1) 50%, rgba(153,111,94,1) 100%); " class="account-level" /> -->
         </div>
-        <span class="email"><font-awesome-icon :icon="['fas', 'envelope']"/> filanfisteku@gmail.com</span>
+        <span class="email"><font-awesome-icon :icon="['fas', 'envelope']"/> {{StateUser.email}}</span>
         <span class="city"><font-awesome-icon :icon="['fas', 'map-marker-alt']"/> Prishtine</span>
       </div>
       <div class="header-bottom">
         <div class="blood-type">
-          <span class="info">B+</span>
+          <span class="info">{{StateUser.bloodtype}}</span>
           <span class="info-title">Blood Type</span>
         </div>
         <div class="donations">
@@ -24,7 +24,7 @@
     </div>
 
     <div class="profile-bottom">
-      <a href=""><font-awesome-icon :icon="['fas', 'history']"/> Appointments</a>
+      <a href=""><font-awesome-icon :icon="['fas', 'calendar-check']"/> Appointments</a>
       <!-- <a href="#history"><font-awesome-icon :icon="['fas', 'medal']"/> Rewards</a> -->
       <a href=""><font-awesome-icon :icon="['fas', 'pen']"/> Edit Profile</a>
     </div>
@@ -32,6 +32,14 @@
 </div>
   
 </template>
+
+<script>
+import { mapGetters } from "vuex";
+
+export default {
+  computed: mapGetters(['StateUser'])
+}
+</script>
 
 <style scoped>
 

@@ -24,7 +24,7 @@ const createSendToken = (user, statusCode, res) => {
     if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
 
     res.cookie('jwt', token, cookieOptions);
-
+    
     user.password = undefined;
 
     res.status(201).json({
@@ -34,7 +34,7 @@ const createSendToken = (user, statusCode, res) => {
             user
         }
     });
-
+    
 };
 
 
@@ -58,7 +58,7 @@ exports.signup = catchAsync(async (req, res, next) => {
 
 exports.login = catchAsync(async (req, res, next) => {
     const { email, password } = req.body;
-
+    
     // 1) Check if email and password exist
     if (!email || !password) {
         return next(new AppError('Please provide email and password!', 400));
