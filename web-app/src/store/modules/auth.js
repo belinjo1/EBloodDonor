@@ -1,4 +1,5 @@
 import AuthService from '@/services/AuthService'
+import UserService from '@/services/UserService'
 
 const state = {
   user: null
@@ -16,6 +17,16 @@ const actions = {
     var userData = null
 
     await AuthService.Login(user)
+    .then((response) => {
+        userData = response.data.data.user
+        console.log(userData)
+    });
+    await commit("setUser", userData);
+  },
+  async fetchUserData({commit, state}) {
+    var userData = null
+    
+    await UserService.getUser(state.user._id)
     .then((response) => {
         userData = response.data.data.user
         console.log(userData)

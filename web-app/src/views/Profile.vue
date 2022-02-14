@@ -1,4 +1,7 @@
 <template>
+<v-app id="profile">
+
+
 <div class="main">
   <div class="profile">
     <div class="profile-header">
@@ -13,31 +16,126 @@
       </div>
       <div class="header-bottom">
         <div class="blood-type">
-          <span class="info">{{StateUser.bloodtype}}</span>
+          <span class="info-value">{{StateUser.bloodtype}}</span>
           <span class="info-title">Blood Type</span>
         </div>
         <div class="donations">
-          <span class="info">11</span>
+          <span class="info-value">11</span>
           <span class="info-title">Donations</span>
         </div>
       </div>
     </div>
 
     <div class="profile-bottom">
-      <a href=""><font-awesome-icon :icon="['fas', 'calendar-check']"/> Appointments</a>
+      <button href=""><font-awesome-icon :icon="['fas', 'calendar-check']"/> Appointments</button>
       <!-- <a href="#history"><font-awesome-icon :icon="['fas', 'medal']"/> Rewards</a> -->
-      <a href=""><font-awesome-icon :icon="['fas', 'pen']"/> Edit Profile</a>
+      <button @click="editItem()"><font-awesome-icon :icon="['fas', 'pen']"/> Edit Profile</button>
     </div>
   </div>
-</div>
+
+<v-dialog
+      v-model="dialog"
+      max-width="500px"
+      >
+      <v-card>
+          <v-card-title>
+          <span class="text-h5"><font-awesome-icon :icon="['fas', 'user-pen']"/> Edit Profile</span>
+          </v-card-title>
+
+          <v-card-text>
+          <v-container>
+              <v-row>
+              <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+              >
+                  <v-text-field
+                  v-model="editedItem.name"
+                  label="Full Name"
+                  ></v-text-field>
+              </v-col>
+              <v-col
+                  cols="12"
+                  sm="6"
+                  md="4"
+              >
+                  <v-text-field
+                  v-model="editedItem.bloodtype"
+                  label="Blood Type"
+                  ></v-text-field>
+              </v-col>
+              </v-row>
+          </v-container>
+          </v-card-text>
+
+          <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+              color="blue darken-1"
+              text
+              @click="close"
+          >
+              Cancel
+          </v-btn>
+          <v-btn
+              color="blue darken-1"
+              text
+              @click="save"
+          >
+              Save
+          </v-btn>
+          </v-card-actions>
+      </v-card>
+    </v-dialog>
   
+    
+</div>
+</v-app>  
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-  computed: mapGetters(['StateUser'])
+  data () {
+    return {
+      dialog: false,
+      editedItem: {
+        name: '',
+        bloodtype: '',
+      },
+    }
+  },
+  computed: mapGetters(['StateUser']),
+  methods:{
+    ...mapActions(["editUser", "UpdateMe"]),
+     editItem () {
+        var currentUserData = {
+          name: this.StateUser.name,
+          bloodtype: this.StateUser.bloodtype,
+        }
+        this.editedItem  = currentUserData;
+        this.dialog = true
+      },
+     close () {
+        this.dialog = false
+        this.$nextTick(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        })
+      },
+      async save () {
+        
+        this.UpdateMe(this.editedItem)
+        this.close()
+
+        setTimeout(()=>{
+         this.$store.dispatch("fetchUserData")
+        }, 1000)
+       
+      },
+  }
 }
 </script>
 
@@ -67,6 +165,7 @@ export default {
 }
 
 .name{
+  color: #424e5e;
   font-size: 25pt;
 }
 .email,
@@ -131,15 +230,18 @@ export default {
   border-radius: 8px;
 }
 
-.blood-type .info,
-.donations .info{
+.blood-type .info-value,
+.donations .info-value{
   font-weight: 600;
   font-size: 18pt;
   padding: 5px 0;
+  color: rgb(47, 49, 53);
 }
 .blood-type .info-title,
 .donations .info-title{
-  font-size: 9pt;
+  font-size: 10pt;
+  color: rgb(61, 65, 73);
+  
 }
 
 .blood-type{
@@ -158,7 +260,7 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-.profile-bottom a{
+.profile-bottom button{
   /* border: dashed 1px green; */
   padding: 20px 0;
   width: 100%;
@@ -173,7 +275,7 @@ export default {
   border: solid 1px rgba(128, 128, 128, 0.123);
   box-shadow: 1px 1px 3px 0px rgb(12, 12, 12, 0.20);
 }
-.profile-bottom a:hover{
+.profile-bottom button:hover{
   background-color: rgb(208, 210, 216);
 }
 </style>

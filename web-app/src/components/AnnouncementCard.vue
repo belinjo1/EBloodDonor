@@ -16,7 +16,7 @@
            <div class="card-footer">
               <div class="info">
                 <span class="city"><font-awesome-icon :icon="['fas', 'map-marker-alt']" />{{announcement.city}}</span>
-                <span class="participants"><font-awesome-icon :icon="['fas', 'users']" />{{announcement.participants}}</span>
+                <span class="participants"><font-awesome-icon :icon="['fas', 'users']" />{{announcement.participants.length}}</span>
               </div>
               <button>Apply</button>
            </div>

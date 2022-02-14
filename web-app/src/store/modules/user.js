@@ -19,14 +19,23 @@ const actions = {
     });
     await commit("setUsers", allUsers);
   },
-  async editUser({commit}, user) {
+  editUser({}, user) {
 
-    await UserService.editUser(user)
-    .then((response) => {
-        allUsers = response.data.data
-        console.log(allUsers)
-    });
-    await commit("setUsers", allUsers);
+    try{
+      UserService.editUser(user)
+    }catch(err){
+      console.log(err)
+    }
+
+  },
+  UpdateMe({}, user) {
+
+    try{
+      UserService.UpdateMe(user)
+    }catch(err){
+      console.log(err)
+    }
+
   },
   deleteUser({}, id) {
     // console.log(id)

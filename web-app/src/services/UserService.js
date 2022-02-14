@@ -19,11 +19,16 @@ export default {
   getAllUsers() {
     return apiClient.get("/api/v1/users/")
   },
+  getUser(id) {
+    return apiClient.get("/api/v1/users/" + id)
+  },
   deleteUser(id) {
     apiClient.delete("/api/v1/users/deleteMe/" + id)
   },
   editUser(user) {
-    console.log(user)
     apiClient.patch("/api/v1/users/editUser", user)
+  },
+  UpdateMe(user) {
+    apiClient.patch("/api/v1/users/UpdateMe", user)
   }
 }

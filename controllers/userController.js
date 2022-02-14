@@ -67,6 +67,7 @@ exports.editUser = catchAsync(async (req, res, next) => {
             user: updatedUser
         }
     })
+    
 });
 
 exports.deleteUser = catchAsync(async (req, res, next) => {
