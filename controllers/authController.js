@@ -21,6 +21,8 @@ const createSendToken = (user, statusCode, res) => {
         httpOnly: true
     };
 
+    // console.log(process.env.JWT_EXPIRES_IN);
+
     if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
 
     res.cookie('jwt', token, cookieOptions);
@@ -77,9 +79,14 @@ exports.login = catchAsync(async (req, res, next) => {
 exports.protect = catchAsync(async (req, res, next) => {
     //1 get token
     let token;
-    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-        token = req.headers.authorization.split(' ')[1];
-    }
+    let cookie = req.headers.cookie.replace('jwt=','');
+
+
+    // if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    //     token = req.headers.authorization.split(' ')[1];
+    // }
+
+    token = cookie
 
     if (!token) {
         return next(new AppError('You need to log in to view this content!', 401));
@@ -206,4 +213,31 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
     //log user in send jwt
     createSendToken(user, 201, res);
 
+});
+
+exports.checkIfCookieExpired = catchAsync(async (req, res, next) => {
+    //1 get token
+    let token;
+    let cookie = req.headers.cookie.replace('jwt=','');
+
+    token = cookie
+
+    if (!token) {
+        return true
+    }
+
+    //2 validate token
+    var decoded = null
+    try{
+        decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+    }catch(error){
+        return true
+    }
+
+    const currentUser = await User.findById(decoded.id);
+    if (!currentUser) {
+        return true
+    }
+
+    return false
 });

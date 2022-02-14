@@ -45,9 +45,27 @@ exports.getUser = catchAsync(async (req, res, next) => {
 });
 
 exports.editUser = catchAsync(async (req, res, next) => {
-    res.status(500).json({
-        status: 'error',
-        message: 'Not implemented'
+
+    const filteredBody = filterObj(req.body, 'name', 'email', 'bloodtype', 'role');
+    const updatedUser = await User.findByIdAndUpdate(req.body._id, filteredBody,
+        {
+            new: true,
+            runValidators: true
+        });
+    if(updatedUser == null){
+        res.status(200).json({
+            status: 'fail',
+            error: {
+                message: "Couldn't find user!"
+            }
+        })
+    }
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            user: updatedUser
+        }
     })
 });
 
@@ -55,8 +73,8 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
 
     const user = await User.findByIdAndDelete(req.params.id);
 
-    res.status(500).json({
-        status: 'error',
+    res.status(200).json({
+        status: 'success',
         message: 'User Deleted!'
     })
 });
@@ -66,8 +84,6 @@ exports.UpdateMe = catchAsync(async (req, res, next) => {
     if (req.body.password || req.body.passwordConfirm) {
         next(new AppError('This route is not for password updates, use /updateMyPassword', 404));
     }
-
-
 
     //update user doc
     //filtered out unwanted body field names that are not allowed to be updated

@@ -1,5 +1,4 @@
-import axios from "axios";
-
+import AuthService from '@/services/AuthService'
 
 const state = {
   user: null
@@ -16,12 +15,19 @@ const actions = {
   async LogIn({commit}, user) {
     var userData = null
 
-    await axios.post("api/v1/users/login", user)
+    await AuthService.Login(user)
     .then((response) => {
         userData = response.data.data.user
         console.log(userData)
     });
     await commit("setUser", userData);
+  },
+  async checkCookie({commit}, user) {
+
+    const check = await AuthService.checkIfCookieExpired()
+    if(check){
+      await commit("logout", user);
+    }
   },
 
   async LogOut({ commit }) {
@@ -31,8 +37,8 @@ const actions = {
 };
 
 const mutations = {
-  setUser(state, username) {
-    state.user = username;
+  setUser(state, userdata) {
+    state.user = userdata;
   },
   logout(state, user) {
     state.user = user;

@@ -12,14 +12,21 @@ const app = express();
 //security
 app.use(helmet());
 
+
 var corsOptions = {
     origin: 'http://localhost:8080',
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-    credentials: true
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token'], 
+    credentials: true, 
+    exposedHeaders: ['*', 'Authorization' ]
 }
+
+//security
+app.use(helmet());
 
 //cors
 app.use(cors(corsOptions));
+
 
 //morgan, logger
 if (process.env.NODE_ENV === 'development') {
