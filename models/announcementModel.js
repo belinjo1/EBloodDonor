@@ -22,7 +22,6 @@ const announcmentSchema = mongoose.Schema({
       "Gjilan",
       "Gjakovë",
     ],
-    required,
     default: "Prishtinë",
   },
 
@@ -30,11 +29,6 @@ const announcmentSchema = mongoose.Schema({
     type: String,
     enum: ["0-", "0+", "A-", "A+", "B+", "B-", "AB-", "AB+"],
     default: "A+",
-  },
-
-  participants: {
-    type: Array,
-    required,
   },
 });
 
