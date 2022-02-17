@@ -13,9 +13,8 @@ const appointmentSchema = mongoose.Schema({
   },
 
   user: {
-    type: string,
+    type: String,
     required: true,
-    unique: true,
     lowercase: true,
   },
 });

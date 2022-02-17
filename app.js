@@ -3,7 +3,8 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
-const userRouter = require('./Routes/userRoutes');
+const userRouter = require('./routes/userRoutes');
+const appointmentRouter = require('./routes/AppointmentRoutes');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 
@@ -16,9 +17,9 @@ app.use(helmet());
 var corsOptions = {
     origin: 'http://localhost:8080',
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-    allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token'], 
-    credentials: true, 
-    exposedHeaders: ['*', 'Authorization' ]
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-csrf-token'],
+    credentials: true,
+    exposedHeaders: ['*', 'Authorization']
 }
 
 //security
@@ -58,6 +59,7 @@ app.use((req, res, next) => {
 
 //setting routes
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/appointments', appointmentRouter);
 
 //error when requesting undefined routes
 app.all('*', (req, res, next) => {
