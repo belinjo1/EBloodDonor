@@ -15,6 +15,7 @@ router.post(
   authController.restrictTo("admin"),
   announcementController.createAnnouncement
 );
+
 router.patch(
   "/updateAnnoucement",
   authController.protect,
