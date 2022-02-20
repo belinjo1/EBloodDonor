@@ -8,101 +8,25 @@
         :key="announcement.id"
         :announcement="announcement"/>
     </div>
+
+    <button @click="getAnnouncements()">GetAllanncoucmcc</button>
   </div>
 </template>
 
 <script>
 import AnnouncementCard from '@/components/AnnouncementCard.vue'
+import { mapActions, mapStates, mapGetters} from 'vuex'
 
 export default {
   name: 'Home',
   components: {
     AnnouncementCard
   },
-  data () {
-    return {
-      announcements: [
-        {
-            id: 1,
-            title: "Announcement 1",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.",
-            city: "Prishtine",
-            bloodtype: "B-",
-            participants: [
-              '1220120',
-              '1220120',
-              '1320120',
-              '4220120',
-              '1220150',
-              '2220120',
-              '8922020',
-              '1220550',
-              '7888225',
-              '6504366'
-            ]
-        },
-        {
-            id: 2,
-            title: "Announcement 2",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            city: "Gjilan",
-            bloodtype: "AB",
-            participants: [
-              '1220120',
-              '1220120',
-              '1320120',
-              '4220120',
-              '1220150',
-              '2220120',
-              '8922020',
-              '1220550',
-              '7888225',
-              '6504366',
-              '1220550',
-              '7888225',
-              '6504366',
-              '8922020',
-              '1220550',
-              '7888225',
-              '6504366',
-              '1220550',
-              '7888225',
-              '6504366',
-              '1220550',
-              '7888225'
-            ]
-        },
-        {
-            id: 3,
-            title: "Announcement 3",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-            city: "Ferizaj",
-            bloodtype: "B+",
-             participants: [
-              '1220120',
-              '1220120',
-              '1320120',
-              '4220120',
-              '1220150',
-              '2220120',
-              '8922020',
-              '1220550',
-              '7888225',
-              '6504366',
-              '1220550',
-              '7888225',
-              '6504366',
-              '8922020',
-              '1220550',
-              '7888225',
-              '6504366',
-              '1220550',
-              '7888225'
-            ]
-        }
-      ]
-    }
+
+  methods: {  
+    ...mapActions(['getAnnouncements'])
   }
+  
 }
 </script>
 

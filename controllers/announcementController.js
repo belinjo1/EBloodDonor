@@ -4,13 +4,13 @@ const AppError = require("../utils/appError");
 
 exports.getAllAnnouncements = catchAsync(async (req, res, next) => {
   const announcements = await Announcement.find();
-
+  
   res.status(200).json({
     status: "success",
-    message: {
-      announcements,
-    },
+    data: {announcements: announcements}
   });
+
+  
 });
 
 exports.createAnnouncement = catchAsync(async (req, res, next) => {

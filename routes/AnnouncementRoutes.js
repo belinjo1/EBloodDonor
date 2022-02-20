@@ -5,8 +5,6 @@ const router = express.Router();
 
 router.get(
   "/getAllAnnouncements",
-  authController.protect,
-  authController.restrictTo("admin"),
   announcementController.getAllAnnouncements
 );
 router.post(
