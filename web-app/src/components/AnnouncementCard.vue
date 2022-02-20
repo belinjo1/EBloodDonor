@@ -1,6 +1,6 @@
 <template>
     <div>
-      <router-link :to="{ name: 'AnnouncementShow', props: { id: announcement.id } }">
+      <router-link :to="{ name: 'AnnouncementShow', params: { id: announcement._id } }">
         <div class="card">
           <div class="card-header">
             <h2 class="title">{{announcement.title}}</h2>
@@ -11,12 +11,13 @@
                 <span>{{announcement.bloodtype}}</span>
             </div>
            
-            <p class="description">{{announcement.description}}</p>
+            <!-- <p class="description">{{announcement.text}}</p> -->
+            <p class="description">{{announcement.text}}</p>
           </div>
            <div class="card-footer">
               <div class="info">
                 <span class="city"><font-awesome-icon :icon="['fas', 'map-marker-alt']" />{{announcement.city}}</span>
-                <span class="participants"><font-awesome-icon :icon="['fas', 'users']" />{{announcement.participants.length}}</span>
+                <!-- <span class="participants"><font-awesome-icon :icon="['fas', 'users']" />{{announcement.participants.length}}</span> -->
               </div>
               <button>Apply</button>
            </div>
@@ -30,6 +31,7 @@ export default {
   props: {
     announcement: Object
   }
+
 }
 </script>
 
@@ -50,7 +52,7 @@ a{
   box-shadow: 1px 2px 8px 1px rgba(0, 0, 0, 0.15);
   border: solid 1px rgba(204, 204, 204, 0.39);
   transition: 0.3s;
-  /* min-height: 244px; */
+  width: 244px;
 }
 .card:hover{
   transform: scale(1.035);

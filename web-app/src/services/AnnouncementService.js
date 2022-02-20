@@ -19,6 +19,9 @@ export default {
   getAllAnnouncements() {
     return apiClient.get("/api/v1/announcements/getAllAnnouncements")
   },
+  getAnnouncement(id) {
+    return apiClient.get("/api/v1/announcements/getAnnouncement/" + id)
+  },
   createAnnouncement(announcement) {
     return apiClient.post("/api/v1/announcements/createAnnouncement")
   },

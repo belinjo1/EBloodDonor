@@ -23,6 +23,7 @@ const routes = [
   {
     path: '/announcement',
     name: 'AnnouncementShow',
+    props: true,
     component: () => import(/* webpackChunkName: "announcement" */ '../views/AnnouncementShow.vue')
   },
   {

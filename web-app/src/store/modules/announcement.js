@@ -1,11 +1,13 @@
 import AnnouncementService from '@/services/AnnouncementService'
 
 const state = {
-  announcements: null
+  announcements: null,
+  announcement: null
 };
 
 const getters = {
-  announcements: (state) => state.announcements
+  announcements: (state) => state.announcements,
+  announcement: (state) => state.announcement
 };
 
 const actions = {
@@ -15,39 +17,53 @@ const actions = {
 
     await AnnouncementService.getAllAnnouncements()
     .then((response) => {
-      // allAnnouncements = response
-        console.log("asdasd" + response)
+      allAnnouncements = response.data.data.announcements
+        console.log(allAnnouncements)
     });
-    // await commit("setAnnouncements", allAnnouncements);
+    await commit("setAnnouncements", allAnnouncements);
   },
-  updateAnnouncement({}, allAnnouncements) {
+  async getAnnouncement({commit}, id) {
+    
+    var announcements = null
 
-    try{
-      AnnouncementService.updateAnnouncement(announcements)
-    }catch(err){
-      console.log(err)
-    }
-
+    await AnnouncementService.getAnnouncement(id)
+    .then((response) => {
+      announcements = response.data.data.announcements
+        console.log(announcements)
+    });
+    await commit("setAnnouncement", announcements);
   },
-  UpdateMe({}, user) {
+  // updateAnnouncement({}, allAnnouncements) {
 
-    try{
-      UserService.UpdateMe(user)
-    }catch(err){
-      console.log(err)
-    }
+  //   try{
+  //     AnnouncementService.updateAnnouncement(announcements)
+  //   }catch(err){
+  //     console.log(err)
+  //   }
 
-  },
-  deleteUser({}, id) {
-    // console.log(id)
-    console.log(id)
-    AnnouncementService.deleteUser(id)
-  }
+  // },
+  // UpdateMe({}, user) {
+
+  //   try{
+  //     UserService.UpdateMe(user)
+  //   }catch(err){
+  //     console.log(err)
+  //   }
+
+  // },
+  // deleteUser({}, id) {
+  //   // console.log(id)
+  //   console.log(id)
+  //   AnnouncementService.deleteUser(id)
+  // }
 };
 
 const mutations = {
   setAnnouncements(state, allAnnouncements) {
     state.announcements = allAnnouncements;
+  },
+  setAnnouncement(state, announcement) {
+    state.announcement = announcement;
   }
 };
 

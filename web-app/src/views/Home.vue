@@ -5,7 +5,7 @@
     <div id="announcements">
        <AnnouncementCard
         v-for="announcement in announcements"
-        :key="announcement.id"
+        :key="announcement._id"
         :announcement="announcement"/>
     </div>
 
@@ -22,7 +22,13 @@ export default {
   components: {
     AnnouncementCard
   },
-
+  
+  created(){
+    this.getAnnouncements()
+  },
+  computed: {
+    ...mapGetters(['announcements']),
+  },
   methods: {  
     ...mapActions(['getAnnouncements'])
   }

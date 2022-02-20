@@ -2,12 +2,12 @@ const Announcement = require("../models/announcementModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 
-exports.getAnnouncements = catchAsync(async (req, res, next) => {
-  const announcements = await Announcement.find({ user: req.user.id });
+exports.getAnnouncement = catchAsync(async (req, res, next) => {
+  const announcements = await Announcement.findById(req.params.id);
 
   res.status(200).json({
     status: "success",
-    message: {
+    data: {
       announcements,
     },
   });
@@ -18,9 +18,12 @@ exports.getAllAnnouncements = catchAsync(async (req, res, next) => {
   
   res.status(200).json({
     status: "success",
-    data: {announcements: announcements}
+    data: {
+      announcements
+    }
   });
 
+  console.log(announcements)
   
 });
 

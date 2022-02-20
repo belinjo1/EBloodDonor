@@ -1,18 +1,18 @@
 <template>
     <div class="main">
       <div class="announcement">
-        <h1>Announcement 1</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam adipisci dolorum voluptatum, vero excepturi soluta hic, neque, nisi cum repellat corporis unde temporibus velit eum ut? Rerum tenetur voluptatibus magnam?</p>
+        <h1>{{announcement.title}}</h1>
+        <p>{{announcement.text}}</p>
         <div class="info">
           <div class="bloodtype">
             <font-awesome-icon :icon="['fas', 'droplet']" />
             <span style="font-weight: bold;">Blood Type: </span>
-            <span>B+</span>
+            <span>{{announcement.bloodtype}}</span>
           </div>
           <div class="city">
             <font-awesome-icon :icon="['fas', 'map-marker-alt']" />
             <span style="font-weight: bold;">Location: </span>
-            <span>Ferizaj</span>
+            <span>{{announcement.city}}</span>
           </div>
            <div class="participants">
             <font-awesome-icon :icon="['fas', 'users']" />
@@ -37,11 +37,9 @@
 <script>
 import { VueDatePicker } from '@mathieustan/vue-datepicker';
 import '@mathieustan/vue-datepicker/dist/vue-datepicker.min.css';
+import {mapState, mapActions} from 'vuex'
 
 export default {
-  props: {
-    announcement: Object
-  },
   components : {
     VueDatePicker,
   },
@@ -49,7 +47,16 @@ export default {
     return {
       date: null
     }
-  }
+  },
+  props: ['id'],
+  created() {
+    this.$store.dispatch('getAnnouncement', this.id)
+  },
+  // computed: mapState(['event'])
+  computed: mapState({
+    announcement: state => state.announcement.announcement
+  }),
+  methods: mapActions(['getAnnouncement'])
 }
 </script>
 

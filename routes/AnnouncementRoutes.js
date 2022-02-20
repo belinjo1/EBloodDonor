@@ -7,6 +7,11 @@ router.get(
   "/getAllAnnouncements",
   announcementController.getAllAnnouncements
 );
+router.get(
+  "/getAnnouncement/:id",
+  announcementController.getAnnouncement
+);
+
 router.post(
   "/createAnnouncement",
   authController.protect,
