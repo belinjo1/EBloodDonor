@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios";
 
 // const apiClient = axios.create({
 //   baseURL: `http://localhost:5000`,
@@ -8,28 +8,27 @@ import axios from 'axios'
 //     'Content-Type': 'application/json'
 //   }
 // })
-axios.defaults.withCredentials = true
+axios.defaults.withCredentials = true;
 
 const apiClient = axios.create({
-    baseURL: `http://localhost:5000`,
-    withCredentials: true
-})
-  
+  baseURL: `http://localhost:5000`,
+  withCredentials: true,
+});
+
 export default {
   getAllAnnouncements() {
-    return apiClient.get("/api/v1/announcements/getAllAnnouncements")
+    return apiClient.get("/api/v1/announcements");
   },
   getAnnouncement(id) {
-    return apiClient.get("/api/v1/announcements/getAnnouncement/" + id)
+    return apiClient.get("/api/v1/announcements/getAnnouncement/" + id);
   },
-  createAnnouncement(announcement) {
-    return apiClient.post("/api/v1/announcements/createAnnouncement")
+  createAnnouncement() {
+    return apiClient.post("/api/v1/announcements");
   },
   updateAnnoucement(announcement) {
-    apiClient.patch("/api/v1/announcements/updateAnnoucement", announcement)
+    apiClient.patch("/api/v1/announcements", announcement);
   },
   deleteAnnouncement(id) {
-    apiClient.delete("/api/v1/announcements/deleteAnnouncement" + id)
-  }
- 
-}
+    apiClient.delete("/api/v1/announcements" + id);
+  },
+};
