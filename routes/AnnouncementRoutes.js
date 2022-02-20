@@ -3,12 +3,8 @@ const announcementController = require("../controllers/announcementController");
 const authController = require("../controllers/authController");
 const router = express.Router();
 
-router.get(
-  "/getAllAnnouncements",
-  authController.protect,
-  authController.restrictTo("admin"),
-  announcementController.getAllAnnouncements
-);
+router.get("/getAnnouncements", announcementController.getAnnouncements);
+router.get("/getAllAnnouncements", announcementController.getAllAnnouncements);
 router.post(
   "/createAnnouncement",
   authController.protect,
