@@ -18,6 +18,7 @@
               <div class="info">
                 <span class="city"><font-awesome-icon :icon="['fas', 'map-marker-alt']" />{{announcement.city}}</span>
                 <!-- <span class="participants"><font-awesome-icon :icon="['fas', 'users']" />{{announcement.participants.length}}</span> -->
+                <span class="participants"><font-awesome-icon :icon="['fas', 'users']" />15</span>
               </div>
               <button>Apply</button>
            </div>
@@ -46,13 +47,14 @@ a{
   border-radius: 15px;
   margin: 10px;
   /* padding: 10px; */
-  width: 100%;
-  max-width: 380px;
+  /* width: 100%;
+  max-width: 380px; */
+  width: 380px;
   box-sizing: border-box;
   box-shadow: 1px 2px 8px 1px rgba(0, 0, 0, 0.15);
   border: solid 1px rgba(204, 204, 204, 0.39);
   transition: 0.3s;
-  width: 244px;
+  overflow: hidden;
 }
 .card:hover{
   transform: scale(1.035);
@@ -125,5 +127,14 @@ a{
 .city>svg,
 .participants>svg{
   margin: 0 3px;
+}
+
+@media only screen and (max-width: 500px) {
+  .card {
+    width: 100%;
+    max-width: 380px;
+
+    margin: 10px 0;
+  }
 }
 </style>

@@ -9,13 +9,12 @@
         :announcement="announcement"/>
     </div>
 
-    <button @click="getAnnouncements()">GetAllanncoucmcc</button>
   </div>
 </template>
 
 <script>
 import AnnouncementCard from '@/components/AnnouncementCard.vue'
-import { mapActions, mapStates, mapGetters} from 'vuex'
+import { mapActions, mapGetters} from 'vuex'
 
 export default {
   name: 'Home',
@@ -46,5 +45,14 @@ export default {
 
 .main{
   margin: 80px 0;
+}
+
+@media only screen and (max-width: 500px) {
+  #announcements{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 10px;
+  }
 }
 </style>
