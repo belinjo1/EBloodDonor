@@ -20,7 +20,7 @@
                 <!-- <span class="participants"><font-awesome-icon :icon="['fas', 'users']" />{{announcement.participants.length}}</span> -->
                 <span class="participants"><font-awesome-icon :icon="['fas', 'users']" />15</span>
               </div>
-              <button>Apply</button>
+              <button>Appoint</button>
            </div>
         </div>
       </router-link>

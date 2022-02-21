@@ -27,7 +27,7 @@
             
             no-header
           />
-          <button class="apply-button">Apply</button>
+          <button class="apply-button">Set Appointment</button>
         </div>
 
       </div>
