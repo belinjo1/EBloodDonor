@@ -31,6 +31,11 @@ const routes = [
     name: 'Login',
     component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
   },
+  {
+    path: '/Contact',
+    name: 'ContactUs',
+    component: () => import(/* webpackChunkName: "contactUs" */ '../views/ContactUs.vue')
+  },
 
   //--------------------------------- Admin Routes ---------------------------------
   {
@@ -38,6 +43,12 @@ const routes = [
     name: 'ListUsers',
     meta: { requiresAuth: true, isAdmin: true },
     component: () => import(/* webpackChunkName: "login" */ '../views/admin/ListUsers.vue')
+  },
+  {
+    path: '/admin/messages',
+    name: 'messages',
+    meta: { requiresAuth: true, isAdmin: true },
+    component: () => import(/* webpackChunkName: "login" */ '../views/admin/ListMessages.vue')
   }
 ]
 

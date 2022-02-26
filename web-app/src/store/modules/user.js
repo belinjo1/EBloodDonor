@@ -9,35 +9,35 @@ const getters = {
 };
 
 const actions = {
-  async getAllUsers({commit}) {
+  async getAllUsers({ commit }) {
     var allUsers = null
 
     await UserService.getAllUsers()
-    .then((response) => {
+      .then((response) => {
         allUsers = response.data.data
         console.log(allUsers)
-    });
+      });
     await commit("setUsers", allUsers);
   },
-  editUser({}, user) {
+  editUser({ }, user) {
 
-    try{
+    try {
       UserService.editUser(user)
-    }catch(err){
+    } catch (err) {
       console.log(err)
     }
 
   },
-  UpdateMe({}, user) {
+  UpdateMe({ }, user) {
 
-    try{
+    try {
       UserService.UpdateMe(user)
-    }catch(err){
+    } catch (err) {
       console.log(err)
     }
 
   },
-  deleteUser({}, id) {
+  deleteUser({ }, id) {
     // console.log(id)
     console.log(id)
     UserService.deleteUser(id)

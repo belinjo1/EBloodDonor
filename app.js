@@ -6,6 +6,7 @@ const rateLimit = require("express-rate-limit");
 const userRouter = require("./routes/userRoutes");
 const appointmentRouter = require("./routes/AppointmentRoutes");
 const announcementRouter = require("./routes/AnnouncementRoutes");
+const contactUsMessages = require("./routes/ContactUsRoutes");
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
 
@@ -59,6 +60,7 @@ app.use((req, res, next) => {
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/appointments", appointmentRouter);
 app.use("/api/v1/announcements", announcementRouter);
+app.use("/api/v1/contactUsMessages", contactUsMessages);
 
 //error when requesting undefined routes
 app.all("*", (req, res, next) => {

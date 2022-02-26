@@ -5,6 +5,7 @@ import sidebar from "./modules/sidebar";
 import auth from "./modules/auth";
 import user from "./modules/user";
 import announcement from "./modules/announcement";
+import contactUs from "./modules/ContactUs"
 
 Vue.use(Vuex)
 
@@ -13,7 +14,8 @@ export default new Vuex.Store({
     sidebar,
     auth,
     user,
-    announcement
+    announcement,
+    contactUs
   },
   plugins: [createPersistedState()]
 
