@@ -22,7 +22,8 @@ import {
   faBullhorn,
   faCalendarCheck,
   faArrowRightFromBracket,
-  faKey
+  faKey,
+  faCircleExclamation
 } from '@fortawesome/free-solid-svg-icons'
 
 const importedIcons = { 
@@ -40,7 +41,8 @@ const importedIcons = {
   faBullhorn,
   faCalendarCheck,
   faArrowRightFromBracket,
-  faKey
+  faKey,
+  faCircleExclamation
 }
 
 Vue.config.productionTip = false

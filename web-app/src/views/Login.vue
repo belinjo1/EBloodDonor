@@ -14,18 +14,20 @@
                 </div>
                 <button type="submit">Login</button>
             </form>
-            <p v-if="showError" id="error">email or Password is incorrect</p>
+            
             </div>
+            
         </div>
+        <p v-if="showError" id="error"><font-awesome-icon :icon="['fas', 'circle-exclamation']" /> {{this.errorMessage}}</p>
     </div>
   
 </template>
 
 <script>
 import { mapActions } from "vuex";
+import schema from '@/data/loginSchema'
 
 export default {
-  name: "Login",
   components: {},
   data() {
     return {
@@ -33,21 +35,30 @@ export default {
         email: "",
         password: "",
       },
-      showError: false
+      showError: false,
+      errorMessage: ''
     };
   },
   methods: {
     ...mapActions(["LogIn"]),
     async submit() {
       const User = {email: this.form.email, password: this.form.password};
-      try {
-          await this.LogIn(User);
-          this.$router.push("/profile");
-          this.showError = false
-      } catch (error) {
+
+      schema.validateAsync(User).then(respone => {
+          this.LogIn(respone).then(() => {
+            this.$router.push("/profile");
+          }).catch(err => {
+            //show login error
+            this.errorMessage = err.response.data.message
+            this.showError = true
+          })
+
+      }).catch(err => {
+        //show validation error
+        this.errorMessage = err.message
         this.showError = true
-        console.log(error)
-      }
+      })
+        
     },
   },
 };
@@ -60,6 +71,7 @@ export default {
 .main{
     min-height: 90vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -108,6 +120,6 @@ input {
   font-size: 11pt;
 }
 #error {
-  color: red;
+  color: rgb(201, 63, 63);
 }
 </style>
