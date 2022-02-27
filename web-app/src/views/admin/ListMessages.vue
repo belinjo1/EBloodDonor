@@ -6,7 +6,7 @@
       <div>
         <v-data-table
           :headers="headers"
-          :items="messages.messages"
+          :items="messages"
           :items-per-page="5"
           :search="search"
           class="elevation-1"
@@ -170,12 +170,12 @@ export default {
   },
 
   created() {
-    this.getAllMessages();
+    this.getMessages();
   },
 
   methods: {
     ...mapActions(["getAllMessages"]),
-    async getAllMessages() {
+    async getMessages() {
       try {
         await this.getAllMessages();
       } catch (error) {
