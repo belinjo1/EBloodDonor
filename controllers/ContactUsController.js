@@ -32,9 +32,10 @@ exports.getAllContactUsMessages = catchAsync(async (req, res, next) => {
 
 //Only for admin
 exports.deleteMessage = catchAsync(async (req, res, next) => {
-    await ContactUs.findByIdAndDelete(req.body._id);
+    const message = await ContactUs.findByIdAndDelete(req.params.id);
+
     res.status(200).json({
-        status: "success",
-        message: "Message Deleted!",
-    });
+        status: 'success',
+        message: 'Message Deleted!'
+    })
 });

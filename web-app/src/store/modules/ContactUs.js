@@ -31,6 +31,9 @@ const actions = {
             console.log(err)
         }
 
+    },
+    deleteMessage({ }, id) {
+        ContactUsService.deleteMessage(id);
     }
 };
 

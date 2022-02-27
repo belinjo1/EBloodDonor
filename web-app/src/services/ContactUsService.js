@@ -23,6 +23,6 @@ export default {
         return apiClient.post("/api/v1/contactUsMessages", message);
     },
     deleteMessage(id) {
-        apiClient.delete("/api/v1/contactUsMessages" + id);
+        apiClient.delete("/api/v1/contactUsMessages/" + id);
     },
 };

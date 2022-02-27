@@ -13,10 +13,12 @@ router
     .post(
         contactUs.sendContactMessage
     )
+
+
+router.route("/:id")
     .delete(
         authController.protect,
         authController.restrictTo("admin"),
         contactUs.deleteMessage
     );
-
 module.exports = router;
