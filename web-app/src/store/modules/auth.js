@@ -45,6 +45,17 @@ const actions = {
     let user = null;
     commit("logout", user);
   },
+
+  async Register({commit}, user) {
+    var userData = null
+
+    await AuthService.Register(user)
+    .then((response) => {
+        userData = response.data.data.user
+        console.log(userData)
+    });
+    await commit("setUser", userData);
+  },
 };
 
 const mutations = {

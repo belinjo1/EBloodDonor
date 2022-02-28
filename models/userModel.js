@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
     photo: String,
     bloodtype: {
         type: String,
-        enum: ['0-', '0+', 'A-', 'A+', 'B+', 'B-', 'AB-', 'AB+'],
+        enum: ['O-', 'O+', 'A-', 'A+', 'B+', 'B-', 'AB-', 'AB+'],
         default: 'A+'
     },
     password: {
