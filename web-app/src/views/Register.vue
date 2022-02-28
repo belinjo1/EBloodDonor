@@ -130,7 +130,7 @@ label {
   margin-left: 10px;
 }
 button[type="submit"] {
-  background: linear-gradient(138deg, rgba(92,169,235,1) 0%, rgba(148,67,240,1) 100%);
+  background: linear-gradient(121deg, rgba(195,89,121,1) 18%, rgba(235,96,96,1) 100%);
   color: white;
   padding: 12px 20px;
   cursor: pointer;
@@ -141,7 +141,7 @@ button[type="submit"] {
   font-size: 12pt;
 }
 button[type="submit"]:hover {
-  background: linear-gradient(138deg, rgba(65,152,227,1) 0%, rgba(124,38,222,1) 100%);
+   background: linear-gradient(121deg, rgba(186,61,99,1) 18%, rgba(235,73,73,1) 100%);
 }
 input {
   /* margin: 5px; */
@@ -153,20 +153,21 @@ input {
 }
 select {
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.25);
-  padding: 12px 18px;
+  padding: 12px 0;
   border-radius: 18px;
   border:none;
-  font-size: 11pt;
+  font-size: 14pt;
   font-weight: bold;
   width: 100%;
   text-align: center;
-  background-color: rgb(221, 114, 114);
+  color: rgb(35, 37, 39);
+  background-color: rgb(231, 159, 171);
   /* cursor: pointer; */
-  transition: 0.5s;
+  transition: 0.35s;
 }
 select:hover{
-  background-color: rgb(218, 168, 195);
-  transition: 0.2s;
+  background-color: rgb(201, 140, 151);
+  transition: 0.05s;
 }
 
 
