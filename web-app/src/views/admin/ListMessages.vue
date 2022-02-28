@@ -17,17 +17,6 @@
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
               <v-dialog v-model="dialog" max-width="500px">
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    color="primary"
-                    dark
-                    class="mb-2"
-                    v-bind="attrs"
-                    v-on="on"
-                  >
-                    New Item
-                  </v-btn>
-                </template>
                 <v-card>
                   <v-card-title>
                     <span class="text-h5">{{ formTitle }}</span>
@@ -174,7 +163,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["getAllMessages"]),
+    ...mapActions(["getAllMessages", "deleteMessage"]),
     async getMessages() {
       try {
         await this.getAllMessages();
@@ -183,59 +172,42 @@ export default {
       }
     },
 
-    // deleteItem(item) {
-    //   this.editedIndex = this.messages.message.indexOf(item);
-    //   this.editedItem = Object.assign({}, item);
-    //   this.dialogDelete = true;
-    // },
+    deleteItem(item) {
+      this.editedIndex = this.messages.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialogDelete = true;
+    },
 
-    // deleteItemConfirm() {
-    //   // this.users.splice(this.editedIndex, 1)
-    //   let id = this.messages.message[this.editedIndex]._id;
-    //   console.log(id);
-    //   this.deleteMessage(id);
-    //   this.closeDelete();
-    //   setTimeout(() => {
-    //     // console.log('timeout!! getUsers')
-    //     this.getAllMessages();
-    //   }, 1000);
-    // },
+    deleteItemConfirm() {
+      this.deleteMessage(this.editedItem._id);
+      this.closeDelete();
+      setTimeout(() => {
+        this.getAllMessages();
+      }, 1000);
+    },
 
-    // close() {
-    //   this.dialog = false;
-    //   this.$nextTick(() => {
-    //     this.editedItem = Object.assign({}, this.defaultItem);
-    //     this.editedIndex = -1;
-    //   });
-    // },
+    close() {
+      this.dialog = false;
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
+    },
 
-    // closeDelete() {
-    //   this.dialogDelete = false;
-    //   this.$nextTick(() => {
-    //     this.editedItem = Object.assign({}, this.defaultItem);
-    //     this.editedIndex = -1;
-    //   });
-    // },
+    closeDelete() {
+      this.dialogDelete = false;
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
+    },
 
-    // async save() {
-    //   if (this.editedIndex > -1) {
-    //     //edit user block code
-    //     //Object.assign(this.users[this.editedIndex], this.editedItem)
-    //     try {
-    //       await this.editUser(this.editedItem);
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    //   } else {
-    //     //add new user block code
-    //     this.users.push(this.editedItem);
-    //   }
-    //   this.close();
-    //   setTimeout(() => {
-    //     // console.log('timeout!! getUsers')
-    //     this.getUsers();
-    //   }, 1000);
-    // },
+    async save() {
+      this.close();
+      setTimeout(() => {
+        this.getMessages();
+      }, 1000);
+    },
   },
 };
 </script>
