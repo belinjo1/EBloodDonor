@@ -33,29 +33,28 @@ const actions = {
     });
     await commit("setAnnouncement", announcements);
   },
-  // updateAnnouncement({}, allAnnouncements) {
+  createAnnouncement({}, announcement) {
 
-  //   try{
-  //     AnnouncementService.updateAnnouncement(announcements)
-  //   }catch(err){
-  //     console.log(err)
-  //   }
+    try{
+      AnnouncementService.createAnnouncement(announcement)
+    }catch(err){
+      console.log(err)
+    }
 
-  // },
-  // UpdateMe({}, user) {
+  },
+  editAnnouncement({}, announcement) {
 
-  //   try{
-  //     UserService.UpdateMe(user)
-  //   }catch(err){
-  //     console.log(err)
-  //   }
+    try{
+      AnnouncementService.updateAnnouncement(announcement)
+    }catch(err){
+      console.log(err)
+    }
 
-  // },
-  // deleteUser({}, id) {
-  //   // console.log(id)
-  //   console.log(id)
-  //   AnnouncementService.deleteUser(id)
-  // }
+  },
+  deleteAnnouncement({}, id) {
+    console.log('store ' + id)
+    AnnouncementService.deleteAnnouncement(id)
+  }
 };
 
 const mutations = {

@@ -50,10 +50,16 @@ const routes = [
     component: () => import(/* webpackChunkName: "login" */ '../views/admin/ListUsers.vue')
   },
   {
+    path: '/admin/announcements',
+    name: 'ListAnnouncements',
+    meta: { requiresAuth: true, isAdmin: true },
+    component: () => import(/* webpackChunkName: "announcements" */ '../views/admin/ListAnnouncements.vue')
+  },
+  {
     path: '/admin/messages',
     name: 'messages',
     meta: { requiresAuth: true, isAdmin: true },
-    component: () => import(/* webpackChunkName: "login" */ '../views/admin/ListMessages.vue')
+    component: () => import(/* webpackChunkName: "messages" */ '../views/admin/ListMessages.vue')
   }
 ]
 

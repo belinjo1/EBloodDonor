@@ -18,6 +18,8 @@ router
     authController.restrictTo("admin"),
     announcementController.updateAnnoucement
   )
+  
+  router.route('/:id')
   .delete(
     authController.protect,
     authController.restrictTo("admin"),
