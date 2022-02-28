@@ -22,13 +22,13 @@ export default {
   getAnnouncement(id) {
     return apiClient.get("/api/v1/announcements/getAnnouncement/" + id);
   },
-  createAnnouncement() {
-    return apiClient.post("/api/v1/announcements");
+  createAnnouncement(announcement) {
+    return apiClient.post("/api/v1/announcements", announcement);
   },
-  updateAnnoucement(announcement) {
+  updateAnnouncement(announcement) {
     apiClient.patch("/api/v1/announcements", announcement);
   },
   deleteAnnouncement(id) {
-    apiClient.delete("/api/v1/announcements" + id);
+    apiClient.delete("/api/v1/announcements/" + id);
   },
 };

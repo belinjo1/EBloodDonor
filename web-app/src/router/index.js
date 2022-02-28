@@ -46,6 +46,12 @@ const routes = [
       import(/* webpackChunkName: "login" */ "../views/Login.vue"),
   },
   {
+    path: "/register",
+    name: "Register",
+    component: () =>
+      import(/* webpackChunkName: "register" */ "../views/Register.vue"),
+  },
+  {
     path: "/Contact",
     name: "ContactUs",
     component: () =>
@@ -61,19 +67,21 @@ const routes = [
       import(/* webpackChunkName: "login" */ "../views/admin/ListUsers.vue"),
   },
   {
+    path: "/admin/announcements",
+    name: "ListAnnouncements",
+    meta: { requiresAuth: true, isAdmin: true },
+    component: () =>
+      import(
+        /* webpackChunkName: "announcements" */ "../views/admin/ListAnnouncements.vue"
+      ),
+  },
+  {
     path: "/admin/messages",
     name: "messages",
     meta: { requiresAuth: true, isAdmin: true },
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/admin/ListMessages.vue"),
-  },
-  {
-    path: "/admin/appointments",
-    name: "ListAppointments",
-    meta: { requiresAuth: true, isAdmin: true },
-    component: () =>
       import(
-        /* webpackChunkName: "login" */ "../views/admin/ListAppointments.vue"
+        /* webpackChunkName: "messages" */ "../views/admin/ListMessages.vue"
       ),
   },
 ];

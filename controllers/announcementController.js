@@ -50,7 +50,7 @@ exports.updateAnnoucement = catchAsync(async (req, res, next) => {
     city: req.body.city,
     bloodtype: req.body.bloodtype,
   });
-
+  
   res.status(200).json({
     status: "success",
     message: "Annoucement changed!",
@@ -58,7 +58,8 @@ exports.updateAnnoucement = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteAnnouncement = catchAsync(async (req, res, next) => {
-  await Announcement.findByIdAndDelete(req.body._id);
+  await Announcement.findByIdAndDelete(req.params.id);
+
   res.status(200).json({
     status: "success",
     message: "Announcement Deleted!",

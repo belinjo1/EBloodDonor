@@ -44,8 +44,8 @@ export default {
     async submit() {
       const User = {email: this.form.email, password: this.form.password};
 
-      schema.validateAsync(User).then(respone => {
-          this.LogIn(respone).then(() => {
+      schema.validateAsync(User).then(() => {
+          this.LogIn(User).then(() => {
             this.$router.push("/profile");
           }).catch(err => {
             //show login error
