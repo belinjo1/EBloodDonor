@@ -14,11 +14,6 @@ router
   )
   .delete(authController.protect, appointmentController.deleteMyAppointment);
 
-router.get(
-  "/getAllAppointments",
-  authController.protect,
-  authController.restrictTo("admin"),
-  appointmentController.getAllAppointments
-);
+router.get("/getAllAppointments", appointmentController.getAllAppointments);
 
 module.exports = router;

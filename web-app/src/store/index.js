@@ -1,13 +1,14 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import sidebar from "./modules/sidebar";
 import auth from "./modules/auth";
 import user from "./modules/user";
 import announcement from "./modules/announcement";
-import contactUs from "./modules/ContactUs"
+import contactUs from "./modules/ContactUs";
+import appointment from "./modules/appointment";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
@@ -15,8 +16,8 @@ export default new Vuex.Store({
     auth,
     user,
     announcement,
-    contactUs
+    contactUs,
+    appointment,
   },
-  plugins: [createPersistedState()]
-
-})
+  plugins: [createPersistedState()],
+});

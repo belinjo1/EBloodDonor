@@ -25,6 +25,12 @@
             ><font-awesome-icon :icon="['fas', 'user']" /> Profile</router-link
           >
         </li>
+        <li>
+          <router-link to="/appointment"
+            ><font-awesome-icon :icon="['fas', 'calendar-check']" /> My
+            Appointments</router-link
+          >
+        </li>
       </ul>
     </div>
 

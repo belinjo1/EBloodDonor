@@ -1,62 +1,88 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Home from "../views/Home.vue";
 import store from "../store";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/",
+    name: "Home",
+    component: Home,
   },
   {
-    path: '/profile',
-    name: 'Profile',
+    path: "/profile",
+    name: "Profile",
     meta: { requiresAuth: true },
     // route level code-splitting
     // this generates a separate chunk (profile.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "profile" */ '../views/Profile.vue')
+    component: () =>
+      import(/* webpackChunkName: "profile" */ "../views/Profile.vue"),
   },
   {
-    path: '/announcement',
-    name: 'AnnouncementShow',
+    path: "/announcement",
+    name: "AnnouncementShow",
     props: true,
-    component: () => import(/* webpackChunkName: "announcement" */ '../views/AnnouncementShow.vue')
+    component: () =>
+      import(
+        /* webpackChunkName: "announcement" */ "../views/AnnouncementShow.vue"
+      ),
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
+    path: "/appointment",
+    name: "MyAppointments",
+    props: true,
+    component: () =>
+      import(
+        /* webpackChunkName: "appointment" */ "../views/MyAppointments.vue"
+      ),
   },
   {
-    path: '/Contact',
-    name: 'ContactUs',
-    component: () => import(/* webpackChunkName: "contactUs" */ '../views/ContactUs.vue')
+    path: "/login",
+    name: "Login",
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/Login.vue"),
+  },
+  {
+    path: "/Contact",
+    name: "ContactUs",
+    component: () =>
+      import(/* webpackChunkName: "contactUs" */ "../views/ContactUs.vue"),
   },
 
   //--------------------------------- Admin Routes ---------------------------------
   {
-    path: '/admin/users',
-    name: 'ListUsers',
+    path: "/admin/users",
+    name: "ListUsers",
     meta: { requiresAuth: true, isAdmin: true },
-    component: () => import(/* webpackChunkName: "login" */ '../views/admin/ListUsers.vue')
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/admin/ListUsers.vue"),
   },
   {
-    path: '/admin/messages',
-    name: 'messages',
+    path: "/admin/messages",
+    name: "messages",
     meta: { requiresAuth: true, isAdmin: true },
-    component: () => import(/* webpackChunkName: "login" */ '../views/admin/ListMessages.vue')
-  }
-]
+    component: () =>
+      import(/* webpackChunkName: "login" */ "../views/admin/ListMessages.vue"),
+  },
+  {
+    path: "/admin/appointments",
+    name: "ListAppointments",
+    meta: { requiresAuth: true, isAdmin: true },
+    component: () =>
+      import(
+        /* webpackChunkName: "login" */ "../views/admin/ListAppointments.vue"
+      ),
+  },
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
@@ -82,5 +108,4 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-
-export default router
+export default router;

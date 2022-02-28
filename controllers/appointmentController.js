@@ -10,7 +10,7 @@ exports.createAppointment = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: "success",
-    message: {
+    data: {
       appointment,
     },
   });
@@ -22,7 +22,7 @@ exports.getAllAppointments = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: "success",
-    message: {
+    data: {
       appointments,
     },
   });
@@ -34,7 +34,7 @@ exports.getMyAppointments = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: "success",
-    message: {
+    data: {
       appointment,
     },
   });
