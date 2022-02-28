@@ -1,11 +1,10 @@
 <template>
-  <v-app id="appointment">
+  <v-app id="appointments">
     <div class="main">
       <h1><font-awesome-icon :icon="['fas', 'calendar']" /> My Appointments</h1>
 
       <div>
-        <!-- per momentin e ndryshme kshtu qe shfaqet kjo -->
-        <h3 v-if="!appointment">Loading...</h3>
+        <h3 v-if="!appointments">Loading...</h3>
 
         <v-data-table
           v-else
@@ -22,15 +21,7 @@
               <v-spacer></v-spacer>
               <v-dialog v-model="dialog" max-width="500px">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    color="primary"
-                    dark
-                    class="mb-2"
-                    v-bind="attrs"
-                    v-on="on"
-                  >
-                    New Item
-                  </v-btn>
+                 
                 </template>
                 <v-card>
                   <v-card-title>
@@ -40,17 +31,13 @@
                   <v-card-text>
                     <v-container>
                       <v-row>
-                        <v-col cols="12" sm="6" md="4">
+                        <v-col cols="12" sm="12" md="12">
                           <v-text-field
                             v-model="editedItem.date"
-                            label="Appointment Date"
+                            label="Appointment date"
                           ></v-text-field>
                         </v-col>
-                        <v-col cols="12" sm="6" md="4">
-                          <v-text-field
-                            v-model="editedItem.status"
-                            label="Status"
-                          ></v-text-field>
+                      
                         </v-col>
                       </v-row>
                     </v-container>
@@ -101,14 +88,6 @@
             </v-icon>
             <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
           </template>
-          <!-- <template v-slot:no-data>
-                    <v-btn
-                        color="primary"
-                        @click="initialize"
-                    >
-                        Reset
-                    </v-btn>
-                    </template> -->
         </v-data-table>
       </div>
     </div>
@@ -130,8 +109,10 @@ export default {
         sortable: false,
         value: "_id",
       },
+
       { text: "date", value: "date" },
       { text: "status", value: "status" },
+      { text: "user", value: "user" },
       { text: "Actions", value: "actions", sortable: false },
     ],
 
@@ -139,12 +120,12 @@ export default {
     editedItem: {
       _id: "",
       date: "",
-      status: "",
     },
     defaultItem: {
       _id: "",
       date: "",
       status: "",
+      user: "",
     },
   }),
 
@@ -165,11 +146,23 @@ export default {
   },
 
   created() {
-    this.getAllAppointments();
+    this.getMyAppointments();
   },
 
   methods: {
-    ...mapActions(["getAppointment", "updateAppointment", "deleteAppointment"]),
+    ...mapActions([
+      "getAppointment",
+      "createAppointment",
+      "editAppointment",
+      "deleteAppointment",
+    ]),
+    async getMyAppointments() {
+      try {
+        await this.getAppointment();
+      } catch (error) {
+        console.log(error);
+      }
+    },
 
     editItem(item) {
       this.editedIndex = this.appointments.indexOf(item);
@@ -184,7 +177,8 @@ export default {
     },
 
     deleteItemConfirm() {
-      console.log(this.editedItem._id);
+      let id = this.appointments[this.editedIndex]._id;
+      console.log(id);
       this.deleteAppointment(id);
       this.closeDelete();
       setTimeout(() => {
@@ -207,20 +201,20 @@ export default {
         this.editedIndex = -1;
       });
     },
-    closeDelete() {
-      this.dialogDelete = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
 
     async save() {
       this.close();
       setTimeout(() => {
-        this.getAppointment();
+        this.getAllAppointments();
       }, 1000);
     },
+      async getMyAppointments() {
+        try {
+            await this.getAppointment();
+        } catch (error) {
+            console.log(error)
+        }
+        }
   },
 };
 </script>

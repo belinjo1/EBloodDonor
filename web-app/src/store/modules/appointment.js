@@ -31,41 +31,25 @@ const actions = {
     await commit("setAppointment", appointments);
   },
 
-  // updateAppointment({}, appointment) {
-  //   try {
-  //     AppointmentService.updateAppointment(appointment);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // },
+  createAppointment({}, appointment) {
+    try {
+      AppointmentService.createAppointment(appointment);
+    } catch (err) {
+      console.log(err);
+    }
+  },
 
-  // deleteAppointment({}, id) {
-  //   AppointmentService.deleteAppointment(id);
-  // },
+  editAppointment({}, appointment) {
+    try {
+      AppointmentService.updateAppointment(appointment);
+    } catch (err) {
+      console.log(err);
+    }
+  },
 
-  // updateAnnouncement({}, allAnnouncements) {
-
-  //   try{
-  //     AnnouncementService.updateAnnouncement(announcements)
-  //   }catch(err){
-  //     console.log(err)
-  //   }
-
-  // },
-  // UpdateMe({}, user) {
-
-  //   try{
-  //     UserService.UpdateMe(user)
-  //   }catch(err){
-  //     console.log(err)
-  //   }
-
-  // },
-  // deleteUser({}, id) {
-  //   // console.log(id)
-  //   console.log(id)
-  //   AnnouncementService.deleteUser(id)
-  // }
+  deleteAppointment({}, id) {
+    AppointmentService.deleteAppointment(id);
+  },
 };
 
 const mutations = {

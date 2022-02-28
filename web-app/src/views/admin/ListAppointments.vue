@@ -53,9 +53,6 @@
                             label="Status"
                           ></v-text-field>
                         </v-col>
-                        <v-col cols="12" sm="6" md="4">
-                          <v-text-field label="User"></v-text-field>
-                        </v-col>
                       </v-row>
                     </v-container>
                   </v-card-text>
@@ -104,6 +101,8 @@
               mdi-pencil
             </v-icon>
             <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+            <button style="color: green; margin-left: 12px">Approve?</button>
+            <!-- <a class="btn btn-primary ml-2">Approve?</a> -->
           </template>
         </v-data-table>
       </div>
@@ -145,6 +144,11 @@ export default {
       status: "",
       user: "",
     },
+
+    editedStatus: {
+      _id: "",
+      status: "approved",
+    },
   }),
 
   computed: {
@@ -168,13 +172,24 @@ export default {
   },
 
   methods: {
-    ...mapActions(["getAppointments"]),
+    ...mapActions([
+      "getAppointments",
+      "createAppointment",
+      "editAppointment",
+      "deleteAppointment",
+    ]),
     async getAllAppointments() {
       try {
         await this.getAppointments();
       } catch (error) {
         console.log(error);
       }
+    },
+
+    editItem(item) {
+      this.editedIndex = this.appointments.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
     },
 
     deleteItem(item) {
@@ -184,12 +199,12 @@ export default {
     },
 
     deleteItemConfirm() {
-      // this.users.splice(this.editedIndex, 1)
-      this.deleteAppointment(this.editedItem._id);
+      let id = this.appointments[this.editedIndex]._id;
+      console.log(id);
+      this.deleteAppointment(id);
       this.closeDelete();
       setTimeout(() => {
-        // console.log('timeout!! getUsers')
-        this.getAllAppointments();
+        this.getAppointments();
       }, 1000);
     },
 

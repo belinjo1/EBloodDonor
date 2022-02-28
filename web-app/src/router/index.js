@@ -76,6 +76,15 @@ const routes = [
       ),
   },
   {
+    path: "/admin/appointments",
+    name: "ListAppointments",
+    meta: { requiresAuth: true, isAdmin: true },
+    component: () =>
+      import(
+        /* webpackChunkName: "appointments" */ "../views/admin/ListAppointments.vue"
+      ),
+  },
+  {
     path: "/admin/messages",
     name: "messages",
     meta: { requiresAuth: true, isAdmin: true },
