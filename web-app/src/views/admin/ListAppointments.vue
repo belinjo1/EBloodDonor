@@ -101,8 +101,10 @@
               mdi-pencil
             </v-icon>
             <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
-            <button style="color: green; margin-left: 12px">Approve?</button>
-            <!-- <a class="btn btn-primary ml-2">Approve?</a> -->
+            <!-- <button style="color: green; margin-left: 12px">Approve?</button> -->
+            <v-btn style="margin-left: 10px" small @click="approve(item)"
+              >Approve</v-btn
+            >
           </template>
         </v-data-table>
       </div>
@@ -137,24 +139,21 @@ export default {
       _id: "",
       date: "",
       status: "",
+      user: "",
     },
+
     defaultItem: {
       _id: "",
       date: "",
       status: "",
       user: "",
     },
-
-    editedStatus: {
-      _id: "",
-      status: "approved",
-    },
   }),
 
   computed: {
     ...mapGetters(["appointments"]),
     formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+      return this.editedIndex === -1 ? "New Item" : "Edit Appointment";
     },
   },
 
@@ -224,11 +223,50 @@ export default {
       });
     },
 
-    async save() {
+    async approve(item) {
+      console.log(item);
+      this.editItem(item);
+      const appointment = { _id: this.editedItem._id, status: "approved" };
+      try {
+        await this.editAppointment(appointment);
+      } catch (error) {
+        console.log(error);
+      }
       this.close();
       setTimeout(() => {
         this.getAllAppointments();
       }, 1000);
+    },
+
+    async save() {
+      if (this.editedIndex > -1) {
+        //edit user block code
+        //Object.assign(this.users[this.editedIndex], this.editedItem)
+        try {
+          await this.editAppointment(this.editedItem);
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        try {
+          await this.createAppointment(this.editedItem);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      this.close();
+      setTimeout(() => {
+        // console.log('timeout!! getUsers')
+        this.getAllAppointments();
+      }, 1000);
+    },
+
+    async getAllAppointments() {
+      try {
+        await this.getAppointments();
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };

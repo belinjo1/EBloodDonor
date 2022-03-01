@@ -22,7 +22,9 @@
       </div>
       <div class="announcement-footer">
         <VueDatePicker v-model="date" placeholder="Choose date" no-header />
-        <button class="apply-button">Set Appointment</button>
+        <button class="apply-button" @click="addAppointment()">
+          Set Appointment
+        </button>
       </div>
     </div>
   </div>
@@ -31,7 +33,7 @@
 <script>
 import { VueDatePicker } from "@mathieustan/vue-datepicker";
 import "@mathieustan/vue-datepicker/dist/vue-datepicker.min.css";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
   components: {
@@ -48,9 +50,23 @@ export default {
   },
   // computed: mapState(['event'])
   computed: mapState({
+    ...mapGetters(["StateUser"]),
+
     announcement: (state) => state.announcement.announcement,
   }),
-  methods: mapActions(["getAnnouncement"]),
+  methods: {
+    ...mapActions(["getAnnouncement", "createAppointment"]),
+
+    async addAppointment() {
+      const appointment = { user: this.StateUser._id, date: this.date };
+      try {
+        await this.createAppointment(appointment);
+        this.$router.push("/");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
 };
 </script>
 

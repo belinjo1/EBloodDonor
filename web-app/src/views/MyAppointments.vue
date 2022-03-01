@@ -1,5 +1,5 @@
 <template>
-  <v-app id="appointments">
+  <v-app id="appointment">
     <div class="main">
       <h1><font-awesome-icon :icon="['fas', 'calendar']" /> My Appointments</h1>
 
@@ -145,6 +145,12 @@ export default {
     },
   },
 
+
+  // props: ["id"],
+  // created() {
+  //   this.$store.dispatch("getMyAppointments", this.id);
+  // },
+
   created() {
     this.getMyAppointments();
   },
@@ -152,7 +158,6 @@ export default {
   methods: {
     ...mapActions([
       "getAppointment",
-      "createAppointment",
       "editAppointment",
       "deleteAppointment",
     ]),

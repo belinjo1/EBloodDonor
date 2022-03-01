@@ -40,6 +40,8 @@ const actions = {
   },
 
   editAppointment({}, appointment) {
+    console.log("Method called from vuex");
+    console.log(appointment);
     try {
       AppointmentService.updateAppointment(appointment);
     } catch (err) {

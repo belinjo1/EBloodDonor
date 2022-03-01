@@ -11,9 +11,11 @@ router
     authController.protect,
     authController.restrictTo("admin"),
     appointmentController.updateAppointment
-  )
-  .delete(authController.protect, appointmentController.deleteMyAppointment);
+  );
 
 router.get("/getAllAppointments", appointmentController.getAllAppointments);
+router
+  .route("/:id")
+  .delete(authController.protect, appointmentController.deleteMyAppointment);
 
 module.exports = router;

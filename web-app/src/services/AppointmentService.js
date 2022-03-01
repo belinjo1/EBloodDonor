@@ -12,15 +12,15 @@ export default {
     return apiClient.get("/api/v1/appointments/getAllAppointments");
   },
   getAppointment(id) {
-    return apiClient.get("/api/v1/appointments" + id);
+    return apiClient.get("/api/v1/appointments/" + id);
   },
-  createAppointment() {
-    return apiClient.post("/api/v1/appointments");
+  createAppointment(appointment) {
+    return apiClient.post("/api/v1/appointments", appointment);
   },
   updateAppointment(appointments) {
     apiClient.patch("/api/v1/appointments", appointments);
   },
   deleteAppointment(id) {
-    apiClient.delete("/api/v1/appointments" + id);
+    apiClient.delete("/api/v1/appointments/" + id);
   },
 };

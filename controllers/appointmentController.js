@@ -53,14 +53,7 @@ exports.updateAppointment = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteMyAppointment = catchAsync(async (req, res, next) => {
-  const appointment = await Appointment.findById(req.body._id);
-
-  if (appointment.user == req.user.id) {
-    await Appointment.findByIdAndDelete(req.body._id);
-  } else {
-    next(new AppError("Cannot delete appointment", 403));
-  }
-
+  const appointment = await Appointment.findByIdAndDelete(req.params.id);
   res.status(200).json({
     status: "success",
     message: "Appointment Deleted!",

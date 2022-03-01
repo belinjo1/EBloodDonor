@@ -2,29 +2,27 @@
   <div id="app">
     <Header></Header>
     <SideBar></SideBar>
-    <router-view/>
+    <router-view />
     <NavBar></NavBar>
   </div>
 </template>
 
 <script>
-import NavBar from '@/components/NavBar.vue'
-import SideBar from '@/components/SideBar.vue'
-import Header from '@/components/Header.vue'
-
-
+import NavBar from "@/components/NavBar.vue";
+import SideBar from "@/components/SideBar.vue";
+import Header from "@/components/Header.vue";
 
 export default {
   components: {
     NavBar,
     SideBar,
-    Header
-  }
-}
+    Header,
+  },
+};
 </script>
 
 <style>
-*{
+* {
   margin: 0;
   box-sizing: border-box;
 }
@@ -36,5 +34,4 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
 </style>
