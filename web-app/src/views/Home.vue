@@ -3,52 +3,51 @@
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <div id="announcements">
-       <AnnouncementCard
+      <AnnouncementCard
         v-for="announcement in announcements"
         :key="announcement._id"
-        :announcement="announcement"/>
+        :announcement="announcement"
+      />
     </div>
-
   </div>
 </template>
 
 <script>
-import AnnouncementCard from '@/components/AnnouncementCard.vue'
-import { mapActions, mapGetters} from 'vuex'
+import AnnouncementCard from "@/components/AnnouncementCard.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    AnnouncementCard
+    AnnouncementCard,
   },
-  
-  created(){
-    this.getAnnouncements()
+
+  created() {
+    this.getAnnouncements();
   },
   computed: {
-    ...mapGetters(['announcements']),
+    ...mapGetters(["announcements"]),
   },
-  methods: {  
-    ...mapActions(['getAnnouncements'])
-  }
-  
-}
+  methods: {
+    ...mapActions(["getAnnouncements"]),
+  },
+};
 </script>
 
 <style scoped>
-#announcements{
+#announcements {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   padding: 20px;
 }
 
-.main{
+.main {
   margin: 80px 0;
 }
 
 @media only screen and (max-width: 500px) {
-  #announcements{
+  #announcements {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;

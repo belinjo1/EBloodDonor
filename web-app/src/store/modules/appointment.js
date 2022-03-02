@@ -24,7 +24,7 @@ const actions = {
   async getAppointment({ commit }, id) {
     var appointments = null;
 
-    await AppointmentService.getAppointment(id).then((response) => {
+    await AppointmentService.getMyAppointments(id).then((response) => {
       appointments = response.data.data.appointments;
       console.log(appointments);
     });

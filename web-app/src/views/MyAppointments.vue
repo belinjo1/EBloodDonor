@@ -1,5 +1,5 @@
 <template>
-  <v-app id="appointment">
+  <v-app id="appointments">
     <div class="main">
       <h1><font-awesome-icon :icon="['fas', 'calendar']" /> My Appointments</h1>
 
@@ -146,10 +146,6 @@ export default {
   },
 
 
-  // props: ["id"],
-  // created() {
-  //   this.$store.dispatch("getMyAppointments", this.id);
-  // },
 
   created() {
     this.getMyAppointments();
@@ -208,9 +204,23 @@ export default {
     },
 
     async save() {
+      if (this.editedIndex > -1) {
+        
+        try {
+          await this.editAppointment(this.editedItem);
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        try {
+          await this.createAppointment(this.editedItem);
+        } catch (error) {
+          console.log(error);
+        }
+      }
       this.close();
       setTimeout(() => {
-        this.getAllAppointments();
+        this.getMyAppointments();
       }, 1000);
     },
       async getMyAppointments() {

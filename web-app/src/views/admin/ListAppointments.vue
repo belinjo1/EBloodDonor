@@ -22,17 +22,6 @@
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
               <v-dialog v-model="dialog" max-width="500px">
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    color="primary"
-                    dark
-                    class="mb-2"
-                    v-bind="attrs"
-                    v-on="on"
-                  >
-                    New Item
-                  </v-btn>
-                </template>
                 <v-card>
                   <v-card-title>
                     <span class="text-h5">{{ formTitle }}</span>
@@ -102,7 +91,11 @@
             </v-icon>
             <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
             <!-- <button style="color: green; margin-left: 12px">Approve?</button> -->
-            <v-btn style="margin-left: 10px" small @click="approve(item)"
+            <v-btn
+              style="margin-left: 10px"
+              color="primary"
+              small
+              @click="approve(item)"
               >Approve</v-btn
             >
           </template>

@@ -11,7 +11,7 @@ export default {
   getAllAppointments() {
     return apiClient.get("/api/v1/appointments/getAllAppointments");
   },
-  getAppointment(id) {
+  getMyAppointments(id) {
     return apiClient.get("/api/v1/appointments/" + id);
   },
   createAppointment(appointment) {
