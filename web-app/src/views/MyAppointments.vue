@@ -4,12 +4,12 @@
       <h1><font-awesome-icon :icon="['fas', 'calendar']" /> My Appointments</h1>
 
       <div>
-        <h3 v-if="!appointments">Loading...</h3>
+        <h3 v-if="!myappointments">Loading...</h3>
 
         <v-data-table
           v-else
           :headers="headers"
-          :items="appointments"
+          :items="myappointments"
           :items-per-page="5"
           :search="search"
           class="elevation-1"
@@ -130,7 +130,7 @@ export default {
   }),
 
   computed: {
-    ...mapGetters(["appointments"]),
+    ...mapGetters(["myappointments"]),
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item";
     },
@@ -145,21 +145,19 @@ export default {
     },
   },
 
-
-
   created() {
     this.getMyAppointments();
   },
 
   methods: {
     ...mapActions([
-      "getAppointment",
+      "getUserAppointments",
       "editAppointment",
       "deleteAppointment",
     ]),
     async getMyAppointments() {
       try {
-        await this.getAppointment();
+        await this.getUserAppointments();
       } catch (error) {
         console.log(error);
       }
@@ -223,13 +221,7 @@ export default {
         this.getMyAppointments();
       }, 1000);
     },
-      async getMyAppointments() {
-        try {
-            await this.getAppointment();
-        } catch (error) {
-            console.log(error)
-        }
-        }
+     
   },
 };
 </script>

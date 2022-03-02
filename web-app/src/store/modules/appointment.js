@@ -3,12 +3,12 @@ import AppointmentService from "@/services/AppointmentService";
 const state = {
   //njo per admin njo per user qe ka me marr vec appoin te vet
   appointments: null,
-  appointment: null,
+  getMyAppointments: null,
 };
 
 const getters = {
   appointments: (state) => state.appointments,
-  appointment: (state) => state.appointment,
+  myappointments: (state) => state.getMyAppointments,
 };
 
 const actions = {
@@ -21,14 +21,14 @@ const actions = {
     });
     await commit("setAppointments", allAppointments);
   },
-  async getAppointment({ commit }, id) {
+  async getUserAppointments({ commit }) {
     var appointments = null;
 
-    await AppointmentService.getMyAppointments(id).then((response) => {
-      appointments = response.data.data.appointments;
-      console.log(appointments);
+    await AppointmentService.getMyAppointments().then((response) => {
+      appointments = response.data.data.appointment;
+      console.log(response);
     });
-    await commit("setAppointment", appointments);
+    await commit("setUserAppointments", appointments);
   },
 
   createAppointment({}, appointment) {
@@ -58,8 +58,8 @@ const mutations = {
   setAppointments(state, allAppointments) {
     state.appointments = allAppointments;
   },
-  setAppointment(state, appointment) {
-    state.appointment = appointment;
+  setUserAppointments(state, appointments) {
+    state.getMyAppointments = appointments;
   },
 };
 

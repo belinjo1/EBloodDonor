@@ -35,8 +35,11 @@
         </div>
 
         <div class="profile-bottom">
-          <button href="">
-            <font-awesome-icon :icon="['fas', 'calendar-check']" /> Appointments
+          <button class="appointmentBtn">
+            <router-link to="/appointment"
+              ><font-awesome-icon :icon="['fas', 'calendar-check']" />
+              Appointments</router-link
+            >
           </button>
           <!-- <a href="#history"><font-awesome-icon :icon="['fas', 'medal']"/> Rewards</a> -->
           <button @click="editItem()">
@@ -128,6 +131,11 @@ export default {
 </script>
 
 <style scoped>
+.appointmentBtn a {
+  text-decoration: none;
+  color: #3d4d69;
+}
+
 .main {
   min-height: 100vh;
   display: flex;
