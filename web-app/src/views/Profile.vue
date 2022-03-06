@@ -28,7 +28,7 @@
               <span class="info-title">Blood Type</span>
             </div>
             <div class="donations">
-              <span class="info-value">11</span>
+              <span class="info-value">{{getDonationNumber()}}</span>
               <span class="info-title">Donations</span>
             </div>
           </div>
@@ -100,9 +100,14 @@ export default {
       },
     };
   },
-  computed: mapGetters(["StateUser"]),
+  created(){
+    this.getMyAppointments();
+  },
+  computed: {
+    ...mapGetters(["StateUser", "myappointments"])
+  },
   methods: {
-    ...mapActions(["editUser", "UpdateMe"]),
+    ...mapActions(["editUser", "UpdateMe", "getUserAppointments"]),
     editItem() {
       var currentUserData = {
         name: this.StateUser.name,
@@ -126,6 +131,24 @@ export default {
         this.$store.dispatch("fetchUserData");
       }, 1000);
     },
+
+     getDonationNumber(){
+      let array = this.myappointments;
+      let filterArray = array.filter((item) => {
+        return item.status == 'approved'
+      })
+      
+      return filterArray.length;
+    },
+
+    async getMyAppointments() {
+      try {
+        await this.getUserAppointments();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    
   },
 };
 </script>
