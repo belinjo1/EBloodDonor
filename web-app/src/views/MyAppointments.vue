@@ -99,6 +99,7 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   data: () => ({
+    items: null,
     search: "",
     dialog: false,
     dialogDelete: false,
@@ -110,9 +111,10 @@ export default {
         value: "_id",
       },
 
+      { text: "announcement", value: "announcement.title" },
       { text: "date", value: "date" },
       { text: "status", value: "status" },
-      { text: "user", value: "user" },
+      { text: "user", value: "user.name" },
       { text: "Actions", value: "actions", sortable: false },
     ],
 
@@ -147,6 +149,7 @@ export default {
 
   created() {
     this.getMyAppointments();
+
   },
 
   methods: {

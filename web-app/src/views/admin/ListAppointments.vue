@@ -120,10 +120,10 @@ export default {
         sortable: false,
         value: "_id",
       },
-
+      { text: "announcement", value: "announcement.title" },
       { text: "date", value: "date" },
       { text: "status", value: "status" },
-      { text: "user", value: "user" },
+      { text: "user", value: "user.name" },
       { text: "Actions", value: "actions", sortable: false },
     ],
 

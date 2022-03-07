@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const announcmentSchema = mongoose.Schema({
+const announcementSchema = mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -32,6 +32,6 @@ const announcmentSchema = mongoose.Schema({
   },
 });
 
-const Announcement = mongoose.model("Announcment", announcmentSchema);
+const Announcement = mongoose.model("Announcement", announcementSchema);
 
 module.exports = Announcement;

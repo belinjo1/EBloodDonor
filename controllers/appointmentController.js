@@ -6,6 +6,7 @@ exports.createAppointment = catchAsync(async (req, res, next) => {
   const appointment = await Appointment.create({
     date: req.body.date,
     user: req.body.user,
+    announcement: req.body.announcement
   });
 
   res.status(200).json({
@@ -18,7 +19,7 @@ exports.createAppointment = catchAsync(async (req, res, next) => {
 
 //Only for admin
 exports.getAllAppointments = catchAsync(async (req, res, next) => {
-  const appointments = await Appointment.find();
+  const appointments = await Appointment.find().populate('user').populate('announcement');
 
   res.status(200).json({
     status: "success",
@@ -30,12 +31,13 @@ exports.getAllAppointments = catchAsync(async (req, res, next) => {
 
 //Only for Authenticated user
 exports.getMyAppointments = catchAsync(async (req, res, next) => {
-  const appointment = await Appointment.find({ user: req.user.id });
+  
+  const appointments = await Appointment.find({ user: req.user.id }).populate('user').populate('announcement');;
 
   res.status(200).json({
     status: "success",
     data: {
-      appointment,
+      appointments,
     },
   });
 });

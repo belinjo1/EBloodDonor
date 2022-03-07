@@ -135,7 +135,9 @@ export default {
      getDonationNumber(){
       let array = this.myappointments;
       let filterArray = array.filter((item) => {
-        return item.status == 'approved'
+        console.log('iteeeeem')
+        console.log(item)
+        return item.status == 'approved' && item.announcement !=  null
       })
       
       return filterArray.length;

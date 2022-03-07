@@ -48,17 +48,16 @@ export default {
   created() {
     this.$store.dispatch("getAnnouncement", this.id);
   },
-  // computed: mapState(['event'])
-  computed: mapState({
-    ...mapGetters(["StateUser"]),
-
-    announcement: (state) => state.announcement.announcement,
-  }),
+  computed: {...mapGetters(["StateUser", "announcement"])},
   methods: {
     ...mapActions(["getAnnouncement", "createAppointment"]),
 
     async addAppointment() {
-      const appointment = { user: this.StateUser._id, date: this.date };
+      const appointment = { 
+        date: this.date, 
+        user: this.StateUser,
+        announcement: this.announcement
+      };
       try {
         await this.createAppointment(appointment);
         this.$router.push("/");

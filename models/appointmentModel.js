@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
+const {Schema} = require('mongoose');
 
 const appointmentSchema = mongoose.Schema({
   date: {
-    type: Date,
+    type: String,
     required: true,
   },
 
@@ -13,9 +14,15 @@ const appointmentSchema = mongoose.Schema({
   },
 
   user: {
-    type: String,
-    // required: true,
-    lowercase: true,
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
+
+  announcement: {
+    type: Schema.Types.ObjectId,
+    ref: 'Announcement',
+    required: true
   },
 });
 

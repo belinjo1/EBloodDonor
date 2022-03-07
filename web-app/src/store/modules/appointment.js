@@ -25,7 +25,7 @@ const actions = {
     var appointments = null;
 
     await AppointmentService.getMyAppointments().then((response) => {
-      appointments = response.data.data.appointment;
+      appointments = response.data.data.appointments;
       console.log(response);
     });
     await commit("setUserAppointments", appointments);
