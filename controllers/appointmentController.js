@@ -1,4 +1,5 @@
 const Appointment = require("./../models/appointmentModel");
+const Announcement = require("./../models/announcementModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 
@@ -8,6 +9,12 @@ exports.createAppointment = catchAsync(async (req, res, next) => {
     user: req.body.user,
     announcement: req.body.announcement
   });
+  
+  const announcement = await Announcement.findByIdAndUpdate(
+    req.body.announcement._id, 
+    { $push: { appointments: appointment } },
+    { new: true, useFindAndModify: false });
+
 
   res.status(200).json({
     status: "success",

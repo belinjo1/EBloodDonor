@@ -17,7 +17,7 @@
         <div class="participants">
           <font-awesome-icon :icon="['fas', 'users']" />
           <span style="font-weight: bold">Participants: </span>
-          <span>15</span>
+          <span>{{announcement.appointments.length}}</span>
         </div>
       </div>
       <div class="announcement-footer">

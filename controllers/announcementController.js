@@ -3,7 +3,7 @@ const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 
 exports.getAnnouncement = catchAsync(async (req, res, next) => {
-  const announcements = await Announcement.findById(req.params.id);
+  const announcements = await Announcement.findById(req.params.id).populate({path: 'appointments'});
 
   res.status(200).json({
     status: "success",
@@ -14,7 +14,7 @@ exports.getAnnouncement = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllAnnouncements = catchAsync(async (req, res, next) => {
-  const announcements = await Announcement.find();
+  const announcements = await Announcement.find().populate({path: 'appointments'});
   
   res.status(200).json({
     status: "success",

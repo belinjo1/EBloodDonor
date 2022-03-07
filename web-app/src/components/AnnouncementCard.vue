@@ -18,7 +18,7 @@
               <div class="info">
                 <span class="city"><font-awesome-icon :icon="['fas', 'map-marker-alt']" />{{announcement.city}}</span>
                 <!-- <span class="participants"><font-awesome-icon :icon="['fas', 'users']" />{{announcement.participants.length}}</span> -->
-                <span class="participants"><font-awesome-icon :icon="['fas', 'users']" />15</span>
+                <span class="participants"><font-awesome-icon :icon="['fas', 'users']" />{{announcement.appointments.length}}</span>
               </div>
               <button>Appoint</button>
            </div>

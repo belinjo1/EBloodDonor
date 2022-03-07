@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const {Schema} = require('mongoose');
 
 const announcementSchema = mongoose.Schema({
   title: {
@@ -30,7 +31,18 @@ const announcementSchema = mongoose.Schema({
     enum: ["0-", "0+", "A-", "A+", "B+", "B-", "AB-", "AB+"],
     default: "A+",
   },
+
 });
+
+announcementSchema.virtual('appointments', {
+  ref: 'Appointment', //The Model to use
+  localField: '_id', //Find in Model, where localField 
+  foreignField: 'announcement', // is equal to foreignField
+});
+
+// Set Object and Json property to true. Default is set to false
+announcementSchema.set('toObject', { virtuals: true });
+announcementSchema.set('toJSON', { virtuals: true });
 
 const Announcement = mongoose.model("Announcement", announcementSchema);
 
