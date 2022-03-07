@@ -5,7 +5,7 @@
         <font-awesome-icon :icon="['fas', 'calendar']" /> All Appointments
       </h1>
 
-      <div>
+      <div class="content">
         <h3 v-if="!appointments">Loading...</h3>
 
         <v-data-table
@@ -274,5 +274,6 @@ export default {
   align-items: center;
   /* border: dashed 2px red; */
   margin: 100px 0;
+  padding: 30px;
 }
 </style>
