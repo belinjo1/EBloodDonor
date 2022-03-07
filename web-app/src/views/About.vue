@@ -6,7 +6,6 @@
         Ibishi.
       </p>
       <div class="textarea">
-        <h4>Shëndeti i njerëzve në rend te parë!</h4>
         <h5>
           Ne besojmë se krijimi i një aplikacioni siç është E-BloodDonor është i
           domosdoshëm për një shoqëri në të cilën jetojmë. Qellimi ynë është që
@@ -35,21 +34,23 @@
 
 .textarea {
   position: absolute;
-  top: 55%;
+  top: 50%;
   left: 65%;
-  transform: translate(-35%, -45%);
+  transform: translate(-35%, -50%);
   font-weight: bold;
   color: black;
   text-align: justify;
   font-size: 28px;
   font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  text-shadow: 0.5px 0.5px lightcoral;
 }
 
 img {
   width: 30%;
   height: 55%;
   position: absolute;
-  top: 55%;
+  top: 60%;
   left: 35%;
   transform: translate(-55%, -65%);
   border-radius: 20px;
@@ -60,6 +61,7 @@ img {
   top: 15%;
   left: 35%;
   transform: translate(-85%, -65%);
+  text-shadow: 1px 1px lightslategray;
 }
 
 .textarea h5 {
@@ -67,19 +69,63 @@ img {
   color: rgb(0, 0, 0, 0.7);
 }
 
-.textarea h4 {
-  margin-left: 50px;
-}
-
 .teksti-nalt {
   position: absolute;
-  top: 13%;
-  left: 75%;
-  transform: translate(-85%, -25%);
+  top: 14%;
+  left: 78%;
+  transform: translate(-86%, -22%);
   text-align: justify;
   font-size: 20px;
   font-family: "Times New Roman", Times, serif;
   color: rgb(0, 0, 0, 0.8);
   font-weight: bold;
+  text-align: center;
+  text-shadow: 1px 1px lightgray;
+}
+
+@media only screen and (max-width: 800px) {
+  img {
+    width: 35%;
+    height: 54%;
+    position: absolute;
+    top: 60%;
+    left: 30%;
+    transform: translate(-45%, -60%);
+    border-radius: 20px;
+    box-shadow: 10px 10px 5px lightcoral;
+  }
+
+  .textarea {
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    transform: translate(-35%, -40%);
+    font-weight: bold;
+    color: black;
+    text-align: justify;
+    font-size: 20px;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  .ne {
+    position: absolute;
+    top: 20%;
+    left: 35%;
+    font-size: 22px;
+    transform: translate(-75%, -65%);
+  }
+
+  .teksti-nalt {
+    position: absolute;
+    top: 20%;
+    left: 80%;
+    transform: translate(-80%, -20%);
+    text-align: justify;
+    font-size: 16px;
+    font-family: "Times New Roman", Times, serif;
+    color: rgb(0, 0, 0, 0.8);
+    font-weight: bold;
+    text-align: center;
+  }
 }
 </style>

@@ -20,9 +20,7 @@
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
               <v-dialog v-model="dialog" max-width="500px">
-                <template v-slot:activator="{ on, attrs }">
-                 
-                </template>
+                <template v-slot:activator="{ on, attrs }"> </template>
                 <v-card>
                   <v-card-title>
                     <span class="text-h5">{{ formTitle }}</span>
@@ -37,8 +35,6 @@
                             label="Appointment date"
                           ></v-text-field>
                         </v-col>
-                      
-                        
                       </v-row>
                     </v-container>
                   </v-card-text>
@@ -206,7 +202,6 @@ export default {
 
     async save() {
       if (this.editedIndex > -1) {
-        
         try {
           await this.editAppointment(this.editedItem);
         } catch (error) {
@@ -224,7 +219,6 @@ export default {
         this.getMyAppointments();
       }, 1000);
     },
-     
   },
 };
 </script>
@@ -238,5 +232,6 @@ export default {
   align-items: center;
   /* border: dashed 2px red; */
   margin: 100px 0;
+  padding: 30px;
 }
 </style>
