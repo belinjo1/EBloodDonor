@@ -19,7 +19,7 @@
             >
             <span class="city"
               ><font-awesome-icon :icon="['fas', 'map-marker-alt']" />
-              Prishtine</span
+              {{ StateUser.city }}</span
             >
           </div>
           <div class="header-bottom">
@@ -28,7 +28,7 @@
               <span class="info-title">Blood Type</span>
             </div>
             <div class="donations">
-              <span class="info-value">{{getDonationNumber()}}</span>
+              <span class="info-value">{{ getDonationNumber() }}</span>
               <span class="info-title">Donations</span>
             </div>
           </div>
@@ -100,11 +100,11 @@ export default {
       },
     };
   },
-  created(){
+  created() {
     this.getMyAppointments();
   },
   computed: {
-    ...mapGetters(["StateUser", "myappointments"])
+    ...mapGetters(["StateUser", "myappointments"]),
   },
   methods: {
     ...mapActions(["editUser", "UpdateMe", "getUserAppointments"]),
@@ -132,14 +132,14 @@ export default {
       }, 1000);
     },
 
-     getDonationNumber(){
+    getDonationNumber() {
       let array = this.myappointments;
       let filterArray = array.filter((item) => {
-        console.log('iteeeeem')
-        console.log(item)
-        return item.status == 'approved' && item.announcement !=  null
-      })
-      
+        console.log("iteeeeem");
+        console.log(item);
+        return item.status == "approved" && item.announcement != null;
+      });
+
       return filterArray.length;
     },
 
@@ -150,7 +150,6 @@ export default {
         console.log(error);
       }
     },
-    
   },
 };
 </script>
