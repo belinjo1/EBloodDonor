@@ -47,7 +47,7 @@
 
           <div class="input-label">
             <label for="city"
-              ><font-awesome-icon :icon="['fas', 'droplet']" /> City</label
+              ><font-awesome-icon :icon="['fas', 'fa-home']" /> City</label
             >
             <select name="city" v-model="form.city">
               <option disabled>Select City</option>
