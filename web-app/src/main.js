@@ -28,6 +28,8 @@ import {
   faArrowRightFromBracket,
   faKey,
   faCircleExclamation,
+  faCircleXmark,
+  faImage
 } from "@fortawesome/free-solid-svg-icons";
 
 const importedIcons = {
@@ -51,6 +53,8 @@ const importedIcons = {
   faArrowRightFromBracket,
   faKey,
   faCircleExclamation,
+  faCircleXmark,
+  faImage
 };
 
 Vue.config.productionTip = false;

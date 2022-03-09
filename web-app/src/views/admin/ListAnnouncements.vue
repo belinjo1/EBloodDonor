@@ -91,6 +91,31 @@
                                     ></v-textarea>
                                 </v-col>
                                 </v-row>
+
+                                 <v-row>
+                                     <v-col>
+                                     <!-- <Dropzone 
+                                      :announcementID="announcementID"
+                                      :initialFiles="initialFiles"
+                                      /> -->
+
+                                      <div>
+                                            <div v-if="!imagePreview">
+                                                
+                                                <label for="file-upload" class="custom-file-upload">
+                                                     <h2><font-awesome-icon :icon="['fas', 'image']"/> Select an image</h2>
+                                                </label>
+                                                <input id="file-upload" class="selectImageBtn" type="file" @change="onFileChange">
+                                            </div>
+                                            <div class="image-uploaded-div" v-else>
+                                                <img class="imagePreview" :src="imagePreview" />
+                                                <button class="removeImageBtn" @click="removeImage"><font-awesome-icon :icon="['fas', 'circle-xmark']"/> Remove</button>
+                                            </div>
+                                            
+                                          <button @click="upload()"></button>
+                                      </div>
+                                    </v-col>
+                                </v-row>
                             </v-container>
                             </v-card-text>
 
@@ -186,7 +211,6 @@ import { mapGetters, mapActions } from 'vuex'
         { text: 'City', value: 'city' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
-      
       editedIndex: -1,
       editedItem: {
         _id: '',
@@ -202,6 +226,8 @@ import { mapGetters, mapActions } from 'vuex'
         bloodtype: '',
         city: ''
       },
+      imagePreview: '',
+      fileUpload: ''
     }),
 
     computed: {
@@ -209,6 +235,20 @@ import { mapGetters, mapActions } from 'vuex'
         formTitle () {
             return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
         },
+        announcementID(){
+          if(this.editedIndex >= 1){
+            return this.announcements[this.editedIndex]._id
+          }else{
+            return ''
+          }
+        },
+        initialFiles(){
+          if(this.editedIndex >= 1){
+            return this.announcements[this.editedIndex].image
+          }else{
+            return ''
+          }
+        }
     },
 
     watch: {
@@ -228,8 +268,10 @@ import { mapGetters, mapActions } from 'vuex'
         ...mapActions(["getAnnouncements", "createAnnouncement", "editAnnouncement","deleteAnnouncement"]),
 
       editItem (item) {
+        this.file = '';
         this.editedIndex = this.announcements.indexOf(item)
         this.editedItem = Object.assign({}, item)
+        this.loadImage(this.announcements[this.editedIndex].image);
         this.dialog = true
       },
 
@@ -242,12 +284,10 @@ import { mapGetters, mapActions } from 'vuex'
       deleteItemConfirm () {
         let id = this.announcements[this.editedIndex]._id
         console.log(id)
-        this.deleteAnnouncement(id)
+        this.deleteAnnouncement(id).then(()=>{
+           this.getAnnouncements()
+        })
         this.closeDelete()
-        setTimeout(()=>{
-          this.getAnnouncements()
-        }, 1000)
-        
       },
 
       close () {
@@ -266,28 +306,40 @@ import { mapGetters, mapActions } from 'vuex'
         })
       },
 
-      async save () {
+      save () {
+        const formData = new FormData()
+
+        for (const [key, value] of Object.entries(this.editedItem)) {
+          formData.append(key, value);
+        }
+
+        //if image is uploaded
+        if(this.fileUpload) formData.append('image', this.fileUpload, this.fileUpload.name)
+
+
         if (this.editedIndex > -1) {
-            //edit user block code
-            //Object.assign(this.users[this.editedIndex], this.editedItem)
-             try {
-                await this.editAnnouncement(this.editedItem);
-            } catch (error) {
-                console.log(error)
-            }
+            //update/edit announcement block code
+
+            //if image is removed
+            if(!this.imagePreview) formData.append('imageRemoved', true)
+
+            this.editAnnouncement(formData).then(()=>{
+              this.getAnnouncements()
+            }).catch((err)=>{
+              console.log(err)
+            })
+                
         } else {
-            //add new user block code
-             try {
-                await this.createAnnouncement(this.editedItem);
-            } catch (error) {
-                console.log(error)
-            }
+            //add new announcement block code
+            
+            this.createAnnouncement(formData).then(()=>{
+              this.getAnnouncements()
+            }).catch((err)=>{
+              console.log(err)
+            })
+         
         }
         this.close()
-        setTimeout(()=>{
-          // console.log('timeout!! getUsers')
-          this.getAnnouncements()
-        }, 1000)
        
       },
 
@@ -297,7 +349,45 @@ import { mapGetters, mapActions } from 'vuex'
         } catch (error) {
             console.log(error)
         }
+      },
+
+      onFileChange(e) {
+        //when an image is selected
+        var files = e.target.files || e.dataTransfer.files;
+        
+        if (!files.length)
+          return;
+        this.createImage(files[0]);
+      },
+
+      createImage(file) {
+        //create/load image that is selected from input
+        var reader = new FileReader();
+
+        this.fileUpload = file;
+
+        reader.onload = (e) => {
+          this.imagePreview = e.target.result;
+        };
+          
+        reader.readAsDataURL(file);
+      },
+      removeImage() {
+        this.imagePreview = '';
+        this.file = '';
+      },
+
+      loadImage(file) {
+        //if announement has image load it
+        if(file){
+          var img = new Buffer.from(file.data.data).toString("base64")
+          this.imagePreview = `data:${file.contentType};base64,${img}`
+        }else{
+          this.imagePreview = ''
         }
+      
+      },
+        
     }
   }
 </script>
@@ -315,6 +405,51 @@ import { mapGetters, mapActions } from 'vuex'
 
 .table{
   max-width: 900px;
+}
+
+.select-image-div,
+.image-uploaded-div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.imagePreview{
+  max-width: 350px;
+  max-height: 350px;
+}
+
+.removeImageBtn{
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  background-color: rgb(209, 90, 90);
+  margin: 8px 0;
+}
+.removeImageBtn:hover{
+  background-color: rgb(192, 81, 81);
+}
+.removeImageBtn:active{
+  background-color: rgb(167, 69, 69);
+}
+
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+  border: 2px dashed rgb(182, 181, 181);
+  border-radius: 5px;
+  display: inline-block;
+  padding: 30px;
+  width: 100%;
+  cursor: pointer;
+}
+.custom-file-upload:hover{
+  background-color: rgb(237, 239, 241);
+}
+.custom-file-upload:active{
+  background-color: rgb(220, 222, 226);
 }
 
 </style>

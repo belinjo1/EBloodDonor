@@ -32,6 +32,11 @@ const announcementSchema = mongoose.Schema({
     default: "A+",
   },
 
+  image: {
+    data: Buffer,
+    contentType: String
+  }
+
 });
 
 announcementSchema.virtual('appointments', {

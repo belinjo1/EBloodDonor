@@ -26,6 +26,10 @@
           Set Appointment
         </button>
       </div>
+
+      <div class="photo-show">
+          <img :src="this.image" alt="">
+        </div>
     </div>
   </div>
 </template>
@@ -42,11 +46,15 @@ export default {
   data() {
     return {
       date: null,
+      image: ''
     };
   },
   props: ["id"],
   created() {
-    this.$store.dispatch("getAnnouncement", this.id);
+    
+    this.$store.dispatch("getAnnouncement", this.id).then(()=>{
+      this.loadImage(this.announcement.image);
+    });
   },
   computed: {...mapGetters(["StateUser", "announcement"])},
   methods: {
@@ -56,7 +64,7 @@ export default {
       const appointment = { 
         date: this.date, 
         user: this.StateUser,
-        announcement: this.announcement
+        announcement: this.announcement._id
       };
       try {
         await this.createAppointment(appointment);
@@ -65,6 +73,17 @@ export default {
         console.log(error);
       }
     },
+    loadImage(file) {
+      
+      if(file){
+        var img = new Buffer.from(file.data.data).toString("base64")
+        this.image = `data:${file.contentType};base64,${img}`
+      }else{
+        this.image = ''
+      }
+     
+    },
+    
   },
 };
 </script>
@@ -75,6 +94,7 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 80vh;
+  margin: 80px 0;
 }
 
 .announcement {
@@ -150,5 +170,10 @@ export default {
 
 svg {
   margin: 0 3px;
+}
+
+.photo-show img{
+  max-width: 550px;
+  max-height: 550px;
 }
 </style>

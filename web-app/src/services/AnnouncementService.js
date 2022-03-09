@@ -26,9 +26,9 @@ export default {
     return apiClient.post("/api/v1/announcements", announcement);
   },
   updateAnnouncement(announcement) {
-    apiClient.patch("/api/v1/announcements", announcement);
+    apiClient.post("/api/v1/announcements/updateAnnouncement", announcement);
   },
   deleteAnnouncement(id) {
     apiClient.delete("/api/v1/announcements/" + id);
-  },
+  }
 };

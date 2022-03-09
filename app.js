@@ -9,6 +9,7 @@ const announcementRouter = require("./routes/AnnouncementRoutes");
 const contactUsMessages = require("./routes/ContactUsRoutes");
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
+const fileupload = require("express-fileupload");
 
 const app = express();
 
@@ -23,11 +24,11 @@ var corsOptions = {
   exposedHeaders: ["*", "Authorization"],
 };
 
-//security
-app.use(helmet());
-
 //cors
 app.use(cors(corsOptions));
+
+//fileUpload
+app.use(fileupload());
 
 //morgan, logger
 if (process.env.NODE_ENV === "development") {
