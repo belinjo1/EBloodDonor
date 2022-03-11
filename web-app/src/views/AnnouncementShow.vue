@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div v-if="announcementFound" class="main">
     <div class="announcement">
       <h1>{{ announcement.title }}</h1>
       <p>{{ announcement.text }}</p>
@@ -32,9 +32,14 @@
         </div>
     </div>
   </div>
+
+  <div v-else>
+    <NotFound/>
+  </div>
 </template>
 
 <script>
+import NotFound from "@/views/404";
 import { VueDatePicker } from "@mathieustan/vue-datepicker";
 import "@mathieustan/vue-datepicker/dist/vue-datepicker.min.css";
 import { mapState, mapActions, mapGetters } from "vuex";
@@ -42,17 +47,22 @@ import { mapState, mapActions, mapGetters } from "vuex";
 export default {
   components: {
     VueDatePicker,
+    NotFound
   },
   data() {
     return {
       date: null,
-      image: ''
+      image: '',
+      announcementFound: false
     };
   },
   props: ["id"],
   created() {
     this.getAnnouncement(this.$route.params.id).then(()=>{
+      this.announcementFound = true;
       this.loadImage(this.announcement.image);
+    }).catch((err)=>{
+      this.announcementFound = false;
     });
   },
   computed: {...mapGetters(["StateUser", "announcement"])},
