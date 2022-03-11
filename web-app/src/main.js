@@ -29,7 +29,9 @@ import {
   faKey,
   faCircleExclamation,
   faCircleXmark,
-  faImage
+  faImage,
+  faArrowLeft,
+  faFaceFrownOpen
 } from "@fortawesome/free-solid-svg-icons";
 
 const importedIcons = {
@@ -54,7 +56,9 @@ const importedIcons = {
   faKey,
   faCircleExclamation,
   faCircleXmark,
-  faImage
+  faImage,
+  faArrowLeft,
+  faFaceFrownOpen
 };
 
 Vue.config.productionTip = false;
