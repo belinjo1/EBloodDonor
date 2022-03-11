@@ -11,7 +11,6 @@
                 <span>{{announcement.bloodtype}}</span>
             </div>
            
-            <!-- <p class="description">{{announcement.text}}</p> -->
             <p class="description">{{announcement.text}}</p>
           </div>
            <div class="card-footer">

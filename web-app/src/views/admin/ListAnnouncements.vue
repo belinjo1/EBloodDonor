@@ -340,6 +340,9 @@ import { mapGetters, mapActions } from 'vuex'
          
         }
         this.close()
+        setTimeout(() => {
+          this.getAnnouncements();
+        }, 1000);
        
       },
 

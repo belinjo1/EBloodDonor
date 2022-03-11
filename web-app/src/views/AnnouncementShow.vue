@@ -51,8 +51,7 @@ export default {
   },
   props: ["id"],
   created() {
-    
-    this.$store.dispatch("getAnnouncement", this.id).then(()=>{
+    this.getAnnouncement(this.$route.params.id).then(()=>{
       this.loadImage(this.announcement.image);
     });
   },
