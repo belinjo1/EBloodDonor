@@ -1,131 +1,142 @@
 <template>
-  <div class="container">
-    <div class="background">
-      <p class="teksti-nalt">
-        Grupi jonë përbehet nga Blerim Morina, Rilind Tasholli dhe Besart
-        Ibishi.
-      </p>
+  <div class="main">
+    <h1>About</h1>
+    <div class="main-content">
+      <img class="card" src="../assets/4.png" alt="" />
       <div class="textarea">
-        <h5>
+        <img class="logo" src="../assets/logo-text.jpeg" alt="" />
+        <p>
           Ne besojmë se krijimi i një aplikacioni siç është E-BloodDonor është i
           domosdoshëm për një shoqëri në të cilën jetojmë. Qellimi ynë është që
           të zbusim vdekshmërinë nga rastet e humbjës së gjakut. Jemi të
           emocionuar që të ju ndihmojmë në udhetimin tonë!
-        </h5>
+        </p>
       </div>
-      <h2 class="ne">Kush jemi ne?</h2>
-      <img src="../assets/4.png" alt="" />
+    </div>
+    <div class="team">
+      <h2>Our Team</h2>
+      <div class="members">
+        <div class="member">
+          <img src="../assets/blerimi.png" alt="" />
+          <h3 class="name">Blerim Morina</h3>
+        </div>
+        <div class="member">
+          <img src="../assets/rilind.png" alt="" />
+          <h3 class="name">Rilind Tasholli</h3>
+        </div>
+        <div class="member">
+          <img src="../assets/besarti.jpg" alt="" />
+          <h3 class="name">Besart Ibishi</h3>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.background {
-  width: 100%;
-  height: 100%;
-
-  position: absolute;
-
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgb(240, 128, 128, 0.1);
+.main {
+  min-height: 90vh;
+  margin: 100px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* border: solid 2px red; */
 }
 
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: dashed 1px green; */
+}
 .textarea {
-  position: absolute;
-  top: 50%;
-  left: 65%;
-  transform: translate(-35%, -50%);
-  font-weight: bold;
-  color: black;
-  text-align: justify;
-  font-size: 28px;
-  font-family: "Times New Roman", Times, serif;
-  text-align: center;
-  text-shadow: 0.5px 0.5px lightcoral;
+  /* position: absolute; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  /* border: dashed 1px red; */
 }
 
-img {
-  width: 30%;
+.textarea .logo {
+  width: 130px;
+  padding: 20px 0;
+}
+.textarea p {
+  max-width: 450px;
+  font-size: 14pt;
+  letter-spacing: 1px;
+}
+
+.card {
+  margin: 20px;
+  width: 450px;
   height: 55%;
-  position: absolute;
-  top: 60%;
-  left: 35%;
-  transform: translate(-55%, -65%);
+  /* position: absolute; */
   border-radius: 20px;
-  box-shadow: 10px 10px 5px lightcoral;
-}
-.ne {
-  position: absolute;
-  top: 15%;
-  left: 35%;
-  transform: translate(-85%, -65%);
-  text-shadow: 1px 1px lightslategray;
+  box-shadow: 2px 5px 10px 2px rgba(177, 150, 150, 0.856);
 }
 
-.textarea h5 {
-  margin-top: 40px;
-  color: rgb(0, 0, 0, 0.7);
+.team {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  margin: 50px 0;
+  background: rgb(214, 200, 201);
+  box-shadow: 0 3px 10px 2px rgba(95, 82, 82, 0.452);
 }
 
-.teksti-nalt {
-  position: absolute;
-  top: 14%;
-  left: 78%;
-  transform: translate(-86%, -22%);
-  text-align: justify;
-  font-size: 20px;
-  font-family: "Times New Roman", Times, serif;
-  color: rgb(0, 0, 0, 0.8);
-  font-weight: bold;
-  text-align: center;
-  text-shadow: 1px 1px lightgray;
+.members {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.member {
+  /* border: dashed 1px red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.member img {
+  width: 130px;
+  padding: 15px;
+  margin: 5px 0;
+  border-radius: 50%;
+  background-color: rgb(151, 162, 199);
+}
+
+.name {
+  font-size: 11pt;
+  margin: 5px 0;
 }
 
 @media only screen and (max-width: 800px) {
-  img {
-    width: 35%;
-    height: 54%;
-    position: absolute;
-    top: 60%;
-    left: 30%;
-    transform: translate(-45%, -60%);
-    border-radius: 20px;
-    box-shadow: 10px 10px 5px lightcoral;
+  .card {
+    width: 350px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .main-content {
+    flex-direction: column;
   }
 
-  .textarea {
-    position: absolute;
-    top: 50%;
-    left: 70%;
-    transform: translate(-35%, -40%);
-    font-weight: bold;
-    color: black;
-    text-align: justify;
-    font-size: 20px;
-    font-family: "Times New Roman", Times, serif;
+  .card {
+    width: 80vw;
+    order: 2;
   }
 
-  .ne {
-    position: absolute;
-    top: 20%;
-    left: 35%;
-    font-size: 22px;
-    transform: translate(-75%, -65%);
-  }
-
-  .teksti-nalt {
-    position: absolute;
-    top: 20%;
-    left: 80%;
-    transform: translate(-80%, -20%);
-    text-align: justify;
-    font-size: 16px;
-    font-family: "Times New Roman", Times, serif;
-    color: rgb(0, 0, 0, 0.8);
-    font-weight: bold;
-    text-align: center;
+  .members {
+    flex-direction: column;
   }
 }
 </style>
