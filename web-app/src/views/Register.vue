@@ -39,7 +39,7 @@
             >
             <select name="bloodtype" v-model="form.bloodtype">
               <option disabled>Select blood type</option>
-              <option v-for="type in bloodtypes" :value="type">
+              <option v-for="type in this.bloodtypes" :value="type">
                 {{ type }}
               </option>
             </select>
@@ -94,7 +94,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters} from "vuex";
 import schema from "@/data/registerSchema";
 
 export default {
@@ -109,20 +109,11 @@ export default {
         password: "",
         passwordConfirm: "",
       },
-      bloodtypes: ["O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-"],
-      cities: [
-        "Prishtinë",
-        "Mitrovicë",
-        "Pejë",
-        "Prizren",
-        "Ferizaj",
-        "Gjilan",
-        "Gjakovë",
-      ],
       showError: false,
       errorMessage: "",
     };
   },
+  computed: mapGetters(['cities', 'bloodtypes']),
   methods: {
     ...mapActions(["Register"]),
     async submit() {

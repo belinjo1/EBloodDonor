@@ -7,6 +7,7 @@ import user from "./modules/user";
 import announcement from "./modules/announcement";
 import contactUs from "./modules/ContactUs";
 import appointment from "./modules/appointment";
+import dropdowns from "./modules/dropdowns";
 
 Vue.use(Vuex);
 
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     announcement,
     contactUs,
     appointment,
+    dropdowns
   },
   plugins: [createPersistedState()],
 });

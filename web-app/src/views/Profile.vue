@@ -66,12 +66,20 @@
                     label="Full Name"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="6" md="4">
-                  <v-text-field
-                    v-model="editedItem.bloodtype"
-                    label="Blood Type"
-                  ></v-text-field>
-                </v-col>
+               <v-col cols="12" sm="6" md="4">
+                <v-select
+                  :items="cities"
+                  v-model="editedItem.city"
+                  label="City"
+                ></v-select>
+              </v-col>
+              <v-col cols="12" sm="6" md="4">
+                <v-select
+                  :items="bloodtypes"
+                  v-model="editedItem.bloodtype"
+                  label="Blood Type"
+                ></v-select>
+              </v-col>
               </v-row>
             </v-container>
           </v-card-text>
@@ -97,6 +105,7 @@ export default {
       editedItem: {
         name: "",
         bloodtype: "",
+        city: ""
       },
     };
   },
@@ -104,7 +113,7 @@ export default {
     this.getMyAppointments();
   },
   computed: {
-    ...mapGetters(["StateUser", "myappointments"]),
+    ...mapGetters(["StateUser", "myappointments", "bloodtypes", "cities"]),
   },
   methods: {
     ...mapActions(["editUser", "UpdateMe", "getUserAppointments"]),
@@ -112,6 +121,7 @@ export default {
       var currentUserData = {
         name: this.StateUser.name,
         bloodtype: this.StateUser.bloodtype,
+        city: this.StateUser.city,
       };
       this.editedItem = currentUserData;
       this.dialog = true;

@@ -47,78 +47,57 @@
                             </v-card-title>
 
                             <v-card-text>
-                            <v-container>
-                                <v-row>
-                                <v-col
-                                    cols="12"
-                                    sm="6"
-                                    md="4"
-                                >
-                                    <v-text-field
-                                    v-model="editedItem.title"
-                                    label="Title"
-                                    ></v-text-field>
+                              <v-row>
+                                <v-col cols="12" sm="12" md="12">
+                                  <v-text-field
+                                      v-model="editedItem.title"
+                                      label="Title"
+                                  ></v-text-field>
                                 </v-col>
-                             
-                                <v-col
-                                    cols="12"
-                                    sm="6"
-                                    md="4"
-                                >
-                                    <v-text-field
-                                    v-model="editedItem.bloodtype"
-                                    label="Blood Type"
-                                    ></v-text-field>
+                                <v-col cols="12" sm="12" md="12">
+                                  <v-textarea
+                                      v-model="editedItem.text"
+                                      label="Description"
+                                      ></v-textarea>
                                 </v-col>
-                                <v-col
-                                    cols="12"
-                                    sm="6"
-                                    md="4"
-                                >
-                                    <v-text-field
+                              </v-row>
+
+                              <v-row>
+                                <v-col cols="12" sm="6" md="6">
+                                  <v-select
+                                    :items="cities"
                                     v-model="editedItem.city"
                                     label="City"
-                                    ></v-text-field>
+                                  ></v-select>
                                 </v-col>
-                                </v-row>
-                                <v-row>
-                                     <v-col
-                                   
-                                >
-                                    <v-textarea
-                                    v-model="editedItem.text"
-                                    label="Description"
-                                    ></v-textarea>
+                                <v-col cols="12" sm="6" md="6">
+                                  <v-select
+                                    :items="bloodtypes"
+                                    v-model="editedItem.bloodtype"
+                                    label="Blood Type"
+                                  ></v-select>
                                 </v-col>
-                                </v-row>
+                              </v-row>
 
-                                 <v-row>
-                                     <v-col>
-                                     <!-- <Dropzone 
-                                      :announcementID="announcementID"
-                                      :initialFiles="initialFiles"
-                                      /> -->
-
-                                      <div>
-                                            <div v-if="!imagePreview">
-                                                
-                                                <label for="file-upload" class="custom-file-upload">
-                                                     <h2><font-awesome-icon :icon="['fas', 'image']"/> Select an image</h2>
-                                                </label>
-                                                <input id="file-upload" class="selectImageBtn" type="file" @change="onFileChange">
-                                            </div>
-                                            <div class="image-uploaded-div" v-else>
-                                                <img class="imagePreview" :src="imagePreview" />
-                                                <button class="removeImageBtn" @click="removeImage"><font-awesome-icon :icon="['fas', 'circle-xmark']"/> Remove</button>
-                                            </div>
-                                            
-                                          <button @click="upload()"></button>
-                                      </div>
-                                    </v-col>
-                                </v-row>
-                            </v-container>
+                              <v-row>
+                                <v-col>
+                                  <div>
+                                    <div v-if="!imagePreview">
+                                      <label for="file-upload" class="custom-file-upload">
+                                      <h2><font-awesome-icon :icon="['fas', 'image']"/> Select an image</h2>
+                                      </label>
+                                      <input id="file-upload" class="selectImageBtn" type="file" @change="onFileChange">
+                                    </div>
+                                    <div class="image-uploaded-div" v-else>
+                                      <img class="imagePreview" :src="imagePreview" />
+                                      <button class="removeImageBtn" @click="removeImage"><font-awesome-icon :icon="['fas', 'circle-xmark']"/> Remove</button>
+                                    </div>
+                                      
+                                    <button @click="upload()"></button>
+                                  </div>
+                                </v-col>
+                              </v-row>
                             </v-card-text>
-
                             <v-card-actions>
                             <v-spacer></v-spacer>
                             <v-btn
@@ -231,7 +210,7 @@ import { mapGetters, mapActions } from 'vuex'
     }),
 
     computed: {
-        ...mapGetters(['announcements']),        
+        ...mapGetters(["announcements", "cities", "bloodtypes"]),        
         formTitle () {
             return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
         },

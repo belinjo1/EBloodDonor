@@ -21,15 +21,6 @@
               <v-spacer></v-spacer>
               <v-dialog v-model="dialog" max-width="500px">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    color="primary"
-                    dark
-                    class="mb-2"
-                    v-bind="attrs"
-                    v-on="on"
-                  >
-                    New Item
-                  </v-btn>
                 </template>
                 <v-card>
                   <v-card-title>
@@ -39,35 +30,40 @@
                   <v-card-text>
                     <v-container>
                       <v-row>
-                        <v-col cols="12" sm="6" md="4">
+                        <v-col cols="12" sm="6" md="6">
                           <v-text-field
                             v-model="editedItem.name"
                             label="Full Name"
                           ></v-text-field>
                         </v-col>
-                        <v-col cols="12" sm="6" md="4">
+                        <v-col cols="12" sm="6" md="6">
                           <v-text-field
                             v-model="editedItem.email"
                             label="Email"
                           ></v-text-field>
                         </v-col>
+                      </v-row>
+                      <v-row>
                         <v-col cols="12" sm="6" md="4">
-                          <v-text-field
-                            v-model="editedItem.bloodtype"
-                            label="Blood Type"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="4">
-                          <v-text-field
-                            v-model="editedItem.role"
-                            label="Role"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12" sm="6" md="4">
-                          <v-text-field
+                           <v-select
+                            :items="cities"
                             v-model="editedItem.city"
                             label="City"
-                          ></v-text-field>
+                          ></v-select>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="4">
+                          <v-select
+                            :items="bloodtypes"
+                            v-model="editedItem.bloodtype"
+                            label="Blood Type"
+                          ></v-select>
+                        </v-col>
+                        <v-col cols="12" sm="6" md="4">
+                          <v-select
+                            :items="roles"
+                            v-model="editedItem.role"
+                            label="Role"
+                          ></v-select>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -175,7 +171,7 @@ export default {
   }),
 
   computed: {
-    ...mapGetters(["users"]),
+    ...mapGetters(["users", "roles", "cities", "bloodtypes"]),
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item";
     },
@@ -192,6 +188,8 @@ export default {
 
   created() {
     this.getAllUsers();
+    this.userRoles = this.roles;
+    this.userCities = this.cities;
   },
 
   methods: {

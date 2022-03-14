@@ -88,7 +88,7 @@ exports.UpdateMe = catchAsync(async (req, res, next) => {
 
     //update user doc
     //filtered out unwanted body field names that are not allowed to be updated
-    const filteredBody = filterObj(req.body, 'name', 'email', 'bloodtype');
+    const filteredBody = filterObj(req.body, 'name', 'email', 'bloodtype', 'city');
     const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody,
         {
             new: true,
