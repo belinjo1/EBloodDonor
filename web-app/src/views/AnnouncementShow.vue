@@ -17,24 +17,33 @@
         <div class="participants">
           <font-awesome-icon :icon="['fas', 'users']" />
           <span style="font-weight: bold">Participants: </span>
-          <span>{{announcement.appointments.length}}</span>
+          <span>{{ announcement.appointments.length }}</span>
         </div>
       </div>
       <div class="announcement-footer">
-        <VueDatePicker v-model="date" placeholder="Choose date" no-header />
+        <VueDatePicker
+          v-model="date"
+          @click="removeErrorMessage()"
+          placeholder="Choose date"
+          :minDate="this.minDate"
+          no-header
+        />
         <button class="apply-button" @click="addAppointment()">
           Set Appointment
         </button>
       </div>
-
+      <p v-if="showError" id="error">
+        <font-awesome-icon :icon="['fas', 'circle-exclamation']" />
+        {{ this.errorMessage }}
+      </p>
       <div class="photo-show">
-          <img :src="this.image" alt="">
-        </div>
+        <img :src="this.image" alt="" />
+      </div>
     </div>
   </div>
 
   <div v-else>
-    <NotFound/>
+    <NotFound />
   </div>
 </template>
 
@@ -47,33 +56,60 @@ import { mapState, mapActions, mapGetters } from "vuex";
 export default {
   components: {
     VueDatePicker,
-    NotFound
+    NotFound,
   },
   data() {
     return {
       date: null,
-      image: '',
-      announcementFound: false
+      image: "",
+      announcementFound: "default",
+      showError: false,
+      errorMessage: "",
     };
   },
   props: ["id"],
   created() {
-    this.getAnnouncement(this.$route.params.id).then(()=>{
-      this.announcementFound = true;
-      this.loadImage(this.announcement.image);
-    }).catch((err)=>{
-      this.announcementFound = false;
-    });
+    this.getAnnouncement(this.$route.params.id)
+      .then(() => {
+        this.announcementFound = true;
+        this.loadImage(this.announcement.image);
+      })
+      .catch((err) => {
+        this.announcementFound = false;
+      });
   },
-  computed: {...mapGetters(["StateUser", "announcement"])},
+  computed: {
+    ...mapGetters(["StateUser", "announcement", "isAuthenticated"]),
+    minDate() {
+      var date = new Date();
+      console.log(date);
+      return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+    },
+  },
+  watch: {
+    date: function () {
+      if (this.date) this.showError = false;
+    },
+  },
   methods: {
     ...mapActions(["getAnnouncement", "createAppointment"]),
 
     async addAppointment() {
-      const appointment = { 
-        date: this.date, 
+      if (!this.isAuthenticated) {
+        this.$router.push("/login");
+        return;
+      }
+
+      if (!this.date) {
+        this.errorMessage = "Please select a date";
+        this.showError = true;
+        return;
+      }
+
+      const appointment = {
+        date: this.date,
         user: this.StateUser,
-        announcement: this.announcement._id
+        announcement: this.announcement._id,
       };
       try {
         await this.createAppointment(appointment);
@@ -83,16 +119,16 @@ export default {
       }
     },
     loadImage(file) {
-      
-      if(file){
-        var img = new Buffer.from(file.data.data).toString("base64")
-        this.image = `data:${file.contentType};base64,${img}`
-      }else{
-        this.image = ''
+      if (file) {
+        var img = new Buffer.from(file.data.data).toString("base64");
+        this.image = `data:${file.contentType};base64,${img}`;
+      } else {
+        this.image = "";
       }
-     
     },
-    
+    removeErrorMessage() {
+      this.showError = false;
+    },
   },
 };
 </script>
@@ -181,8 +217,19 @@ svg {
   margin: 0 3px;
 }
 
-.photo-show img{
+.photo-show img {
   max-width: 550px;
   max-height: 550px;
+}
+
+#error {
+  color: rgb(201, 63, 63);
+  margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+  .photo-show img {
+    width: 95vw;
+  }
 }
 </style>
