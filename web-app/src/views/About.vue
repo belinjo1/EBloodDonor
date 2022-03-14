@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <h1>About</h1>
+    <h1><font-awesome-icon :icon="['fas', 'info-circle']" /> About</h1>
     <div class="main-content">
       <div id="slider" class="slidesS">
         <ul id="slideWrap">
@@ -14,7 +14,7 @@
         <a id="next" href="#"></a>
       </div>
       <div class="textarea">
-        <!-- <img class="logo" src="../assets/logo-text.jpeg" alt="" /> -->
+        <img class="logo" src="../assets/logo-text.png" alt="" />
         <p>
           Ne besojmë se krijimi i një aplikacioni siç është E-BloodDonor është i
           domosdoshëm për një shoqëri në të cilën jetojmë. Qellimi ynë është që
@@ -54,6 +54,9 @@
   /* border: solid 2px red; */
 }
 
+svg{
+  color: rgb(190, 65, 71);
+}
 .main-content {
   display: flex;
   justify-content: center;
@@ -130,9 +133,9 @@
 }
 #slider {
   position: relative;
-  width: 500px;
+  width: 450px;
   height: auto;
-  margin: 100px auto;
+  margin: 50px 0 20px;
   overflow: hidden;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
   border-radius: 10%;
@@ -156,46 +159,30 @@
 }
 
 #slider ul li img {
-  width: 500px;
+  width: 450px;
   height: auto;
 }
 
-#slider #prev,
-#slider #next {
-  width: 40px;
-  line-height: 40px;
-  font-size: 1.5rem;
-  text-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-  text-align: center;
-  color: black;
-  background: #f9f7fb;
-  text-decoration: none;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  transition: all 150ms ease;
-}
-
-#slider #prev:hover,
-#slider #next:hover {
-  background-color: rgba(0, 0, 0, 0.5);
-  text-shadow: 0;
-  color: white;
-}
-
-#slider #next {
-  right: 0px;
-}
 
 @media only screen and (max-width: 800px) {
-  .card {
-    width: 350px;
+  .main-content {
+    flex-direction: column;
   }
+
+  
 }
 
 @media only screen and (max-width: 600px) {
   .main-content {
     flex-direction: column;
+  }
+
+  #slider {
+    max-width: 90vw;
+  }
+
+  #slider ul li img {
+    max-width: 90vw;
   }
 
   .card {

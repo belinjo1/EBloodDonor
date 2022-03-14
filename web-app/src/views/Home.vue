@@ -67,6 +67,10 @@ export default {
   margin: 100px 0;
 }
 
+svg{
+  color: rgb(190, 65, 71);
+}
+
 ul{
   border: '2px solid red';
 }

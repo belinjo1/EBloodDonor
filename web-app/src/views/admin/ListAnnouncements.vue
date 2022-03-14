@@ -493,4 +493,10 @@ input[type="file"] {
 #error {
   color: rgb(201, 63, 63);
 }
+
+@media only screen and (max-width: 600px) {
+ .imagePreview{
+   max-width: 90vw;
+ }
+}
 </style>
