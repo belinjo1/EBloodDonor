@@ -1,27 +1,43 @@
 <template>
   <div class="main">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <div id="announcements">
-      <AnnouncementCard
-        v-for="announcement in announcements"
-        :key="announcement._id"
-        :announcement="announcement"
-      />
+    <h1><font-awesome-icon :icon="['fas', 'bullhorn']" /> Announcements</h1>
+
+    <div v-if="this.announcements">
+       <div id="announcements">
+          <AnnouncementCard
+            v-for="announcement in pageOfItems"
+            :key="announcement._id"
+            :announcement="announcement"
+          />
+        </div>
+        
+        <Pagination :announcements="this.announcements" @updatePage="this.updatePage" ></Pagination>
     </div>
+
+    <div v-else>
+      <h3><font-awesome-icon :icon="['fas', 'circle-exclamation']" /> There are no announcements!</h3>
+    </div>
+   
   </div>
+
 </template>
 
 <script>
 import AnnouncementCard from "@/components/AnnouncementCard.vue";
+import Pagination from "@/components/Pagination.vue";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Home",
   components: {
     AnnouncementCard,
+    Pagination
   },
-
+  data(){
+    return{
+      pageOfItems: []
+    }
+  },
   created() {
     this.getAnnouncements();
   },
@@ -30,7 +46,12 @@ export default {
   },
   methods: {
     ...mapActions(["getAnnouncements"]),
+    updatePage(pageOfItems) {
+    // update page of items
+    this.pageOfItems = pageOfItems;
+  }
   },
+  
 };
 </script>
 
@@ -43,7 +64,19 @@ export default {
 }
 
 .main {
-  margin: 80px 0;
+  margin: 100px 0;
+}
+
+ul{
+  border: '2px solid red';
+}
+
+li {
+  display: 'inline-block';
+  border: '2px dotted green';
+}
+a {
+    color: 'blue';
 }
 
 @media only screen and (max-width: 500px) {
