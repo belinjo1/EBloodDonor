@@ -2,9 +2,19 @@
   <div class="main">
     <h1>About</h1>
     <div class="main-content">
-      <img class="card" src="../assets/4.png" alt="" />
+      <div id="slider" class="slidesS">
+        <ul id="slideWrap">
+          <li><img src="../assets/1.png" alt="" /></li>
+          <li><img src="../assets/2.png" alt="" /></li>
+          <li><img src="../assets/3.png" alt="" /></li>
+          <li><img src="../assets/4.png" alt="" /></li>
+          <li><img src="../assets/5.png" alt="" /></li>
+        </ul>
+        <a id="prev" href="#"></a>
+        <a id="next" href="#"></a>
+      </div>
       <div class="textarea">
-        <img class="logo" src="../assets/logo-text.jpeg" alt="" />
+        <!-- <img class="logo" src="../assets/logo-text.jpeg" alt="" /> -->
         <p>
           Ne besojmë se krijimi i një aplikacioni siç është E-BloodDonor është i
           domosdoshëm për një shoqëri në të cilën jetojmë. Qellimi ynë është që
@@ -118,6 +128,64 @@
   font-size: 11pt;
   margin: 5px 0;
 }
+#slider {
+  position: relative;
+  width: 500px;
+  height: auto;
+  margin: 100px auto;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  border-radius: 10%;
+}
+
+#slider ul {
+  position: relative;
+  list-style: none;
+  height: 100%;
+  width: 10000%;
+  padding: 0;
+  margin: 0;
+  transition: all 750ms ease;
+  left: 0;
+}
+
+#slider ul li {
+  position: relative;
+  height: 100%;
+  float: left;
+}
+
+#slider ul li img {
+  width: 500px;
+  height: auto;
+}
+
+#slider #prev,
+#slider #next {
+  width: 40px;
+  line-height: 40px;
+  font-size: 1.5rem;
+  text-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  color: black;
+  background: #f9f7fb;
+  text-decoration: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 150ms ease;
+}
+
+#slider #prev:hover,
+#slider #next:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+  text-shadow: 0;
+  color: white;
+}
+
+#slider #next {
+  right: 0px;
+}
 
 @media only screen and (max-width: 800px) {
   .card {
@@ -140,3 +208,58 @@
   }
 }
 </style>
+
+<script type="text/javascript">
+var responsiveSlider = function () {
+  var slider = document.getElementById("slider");
+  var slideList = document.getElementById("slideWrap");
+  var prev = document.getElementById("prev");
+  var next = document.getElementById("next");
+
+  var count = 1;
+  var sliderWidth = slider.offsetWidth;
+  var items = slideList.querySelectorAll("li").length;
+
+  window.addEventListener("resize", function () {
+    sliderWidth = slider.offsetWidth;
+  });
+
+  var nextSlide = function () {
+    if (count < items) {
+      slideList.style.left = "-" + count * sliderWidth + "px";
+      count++;
+    } else if ((count = items)) {
+      slideList.style.left = "0px";
+      count = 1;
+    }
+  };
+
+  var prevSlide = function () {
+    if (count > 1) {
+      count = count - 2;
+      slideList.style.left = "-" + count * sliderWidth + "px";
+      count++;
+    } else if ((count = 1)) {
+      count = items - 1;
+      slideList.style.left = "-" + count * sliderWidth + "px";
+      count++;
+    }
+  };
+
+  next.addEventListener("click", function () {
+    nextSlide();
+  });
+
+  prev.addEventListener("click", function () {
+    prevSlide();
+  });
+
+  setInterval(function () {
+    nextSlide();
+  }, 4000);
+};
+
+window.onload = function () {
+  responsiveSlider();
+};
+</script>

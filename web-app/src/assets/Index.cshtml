@@ -1,0 +1,209 @@
+﻿@{ ViewData["Title"] = "Home Page"; }
+
+@using X.PagedList.Mvc.Core; @*import this so we get our HTML Helper*@
+@using X.PagedList; @*import this so we can cast our list to IPagedList (only necessary because ViewBag is dynamic)*@
+@model X.PagedList.IPagedList<E_BloodDonor.Models.Announcement>
+
+@{ 
+    var usersRegistred = ViewData["UsersRegistred"];
+    var AnnouncementsMade = ViewData["AnnouncementsMade"];
+    var AppointmentsMade = ViewData["AppointmentsMade"];
+}
+
+
+<link href="/css/PagedList.css" rel="stylesheet" type="text/css" />
+<link href="/css/stats.css" rel="stylesheet" type="text/css" />
+<link href="/css/Slider.css" rel="stylesheet" type="text/css" />
+@*<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.1/css/all.min.css" rel="stylesheet">*@
+
+<div class="hero-section">
+    <div class="shadow-overlay"></div>
+    <div class="wrapping d-flex justify-content-center align-items-center">
+
+        <div id="slider" class="slidesS">
+            <ul id="slideWrap">
+                <li><img src="./images/1.png" alt=""></li>
+                <li><img src="./images/2.png" alt=""></li>
+                <li><img src="./images/3.png" alt=""></li>
+                <li><img src="./images/4.png" alt=""></li>
+                <li><img src="./images/5.png" alt=""></li>
+            </ul>
+            <a id="prev" href="#"></a>
+            <a id="next" href="#"></a>
+
+        </div>
+        <div class="stats d-flex flex-column">
+
+            <div class="row1 d-flex">
+                <div class="stat1 d-flex">
+                    <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Announc.</h5>
+                        <span class="h2 font-weight-bold mb-0">@AnnouncementsMade</span>
+                    </div>
+                    <div class="col-auto">
+                        <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat1 d-flex">
+                    <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Users</h5>
+                        <span class="h2 font-weight-bold mb-0">@usersRegistred</span>
+                    </div>
+                    <div class="col-auto">
+                        <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row2 d-flex">
+
+                <div class="stat1 d-flex">
+                    <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Appointm.</h5>
+                        <span class="h2 font-weight-bold mb-0">@AppointmentsMade</span>
+                    </div>
+                    <div class="col-auto">
+                        <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat1 d-flex" style="width:500px !important;">
+                    <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Centers.</h5>
+                        <span class="h2 font-weight-bold mb-0">7</span>
+                    </div>
+                    <div class="col-auto">
+                        <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div>
+
+        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+        {
+            <div class="col-11 d-flex justify-content-center" style="margin-left:3.5% !important">
+                
+                    <div class="search-bar">
+                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                        <input type="submit" value="Search" class="btn-search" />
+                    </div>
+               
+            </div>}
+
+
+        <div class="col-12 d-flex flex-wrap align-content-start">
+            @foreach (var item in Model)
+            {
+                <div class="card m-3 mx-auto" id="announcementObj" style="width: 18rem;">
+                    <img src="/images/BloodDonor.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title</h5>
+                        <p class="card-text">@item.Text</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Grupi gjakut:</strong> @item.BloodType.Type</li>
+                        <li class="list-group-item"><strong>Rajoni:</strong> @item.City.Name</li>
+                    </ul>
+                    <div class="card-body">
+
+                        <a class="btn btn-info" asp-controller="Appointments" asp-action="Create">Set Appointment</a>
+                    </div>
+                </div>}
+        </div>
+
+    </div>
+
+    @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index",
+        new { page, currentFilter = ViewBag.CurrentFilter }))
+
+    <br />
+    <br />
+</div>
+
+
+
+<script type="text/javascript">
+    var responsiveSlider = function () {
+
+        var slider = document.getElementById("slider");
+        var slideList = document.getElementById("slideWrap");
+        var prev = document.getElementById("prev");
+        var next = document.getElementById("next");
+
+        var count = 1;
+        var sliderWidth = slider.offsetWidth;
+        var items = slideList.querySelectorAll("li").length;
+
+
+        window.addEventListener('resize', function () {
+            sliderWidth = slider.offsetWidth;
+        });
+
+
+        var nextSlide = function () {
+            if (count < items) {
+                slideList.style.left = "-" + count * sliderWidth + "px";
+                count++;
+            }
+            else if (count = items) {
+                slideList.style.left = "0px";
+                count = 1;
+            }
+        };
+
+
+        var prevSlide = function () {
+            if (count > 1) {
+                count = count - 2;
+                slideList.style.left = "-" + count * sliderWidth + "px";
+                count++;
+            }
+            else if (count = 1) {
+                count = items - 1;
+                slideList.style.left = "-" + count * sliderWidth + "px";
+                count++;
+            }
+        };
+
+
+        next.addEventListener("click", function () {
+            nextSlide();
+        });
+
+        prev.addEventListener("click", function () {
+            prevSlide();
+        });
+
+
+        setInterval(function () {
+            nextSlide()
+        }, 5000);
+
+    };
+
+
+    window.onload = function () {
+        responsiveSlider();
+    }
+</script>
+
+
+<style>
+
+</style>
