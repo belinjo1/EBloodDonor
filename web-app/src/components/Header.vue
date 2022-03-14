@@ -140,12 +140,10 @@ export default {
 .register-btn {
     background: linear-gradient(121deg, rgba(195,89,121,1) 18%, rgba(235,96,96,1) 100%);
     border-radius: 8px 0 0 8px;
-    
 }
 
 .register-btn:hover {
     background: linear-gradient(121deg, rgba(186,61,99,1) 18%, rgba(235,73,73,1) 100%);
-    border-radius: 8px 0 0 8px;
 }
 
 .login-btn {
@@ -155,7 +153,6 @@ export default {
 
 .login-btn:hover {
     background: linear-gradient(138deg, rgba(65,152,227,1) 0%, rgba(124,38,222,1) 100%);
-    border-radius: 0 8px 8px 0;
 }
 
 .logout-btn {
@@ -175,4 +172,31 @@ export default {
     background: linear-gradient(138deg, rgba(65,152,227,1) 0%, rgba(124,38,222,1) 100%);
 }
 
+@media only screen and (max-width: 600px) {
+
+    .header-logo{
+       padding: 3px 8px;
+    }
+    .header-logo img{
+        width: 30px;
+    }
+    .header-logo span{
+        font-size: 11pt;
+    }
+    
+    .register-login {
+        flex-direction: column;
+    }
+
+    .register-btn{
+        border-radius: 8px 8px 0 0;
+        width: 100%;
+        padding: 10px;
+    }
+    .login-btn{
+        border-radius: 0 0 8px 8px ;
+        width: 100%;
+        padding: 10px;
+    }
+}
 </style>

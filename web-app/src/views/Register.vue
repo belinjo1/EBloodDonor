@@ -37,7 +37,7 @@
               ><font-awesome-icon :icon="['fas', 'droplet']" /> Blood
               Type</label
             >
-            <select name="bloodtype" v-model="form.bloodtype">
+            <select name="bloodtype" class="select-blood" v-model="form.bloodtype">
               <option disabled>Select blood type</option>
               <option v-for="type in this.bloodtypes" :value="type">
                 {{ type }}
@@ -49,7 +49,7 @@
             <label for="city"
               ><font-awesome-icon :icon="['fas', 'fa-home']" /> City</label
             >
-            <select name="city" v-model="form.city">
+            <select name="city" class="select-city" v-model="form.city">
               <option disabled>Select City</option>
               <option v-for="city in cities" :value="city">
                 {{ city }}
@@ -152,7 +152,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 90px;
+  margin: 120px 0;
 }
 
 .profile-image {
@@ -220,12 +220,24 @@ select {
   width: 100%;
   text-align: center;
   color: rgb(35, 37, 39);
-  background-color: rgb(231, 159, 171);
   /* cursor: pointer; */
   transition: 0.35s;
 }
-select:hover {
+
+
+.select-blood{
+  background-color: rgb(231, 159, 171);
+}
+.select-blood:hover {
   background-color: rgb(201, 140, 151);
+  transition: 0.05s;
+}
+
+.select-city{
+  background-color: rgb(189, 203, 236);
+}
+.select-city:hover {
+  background-color: rgb(169, 180, 207);
   transition: 0.05s;
 }
 

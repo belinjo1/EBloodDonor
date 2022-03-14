@@ -1,9 +1,9 @@
 <template>
     <div>
         <div id="nav">
-            <router-link to="/"><font-awesome-icon :icon="['fas', 'home']" />Home</router-link>
+            <router-link to="/"><font-awesome-icon :icon="['fas', 'home']" /><span>Home</span></router-link>
             <img src="../assets/logo.png" class="nav-logo">
-            <router-link to="/profile"><font-awesome-icon :icon="['fas', 'user']" />Profile</router-link>
+            <router-link to="/profile"><font-awesome-icon :icon="['fas', 'user']" /><span>Profile</span></router-link>
         </div>
     </div>
 </template>
@@ -62,5 +62,16 @@ background: linear-gradient(0deg, rgba(255,255,255,1) 59%, rgba(255,255,255,0.83
 .nav-logo{
     width: 65px;
     margin-bottom: 12px;
+}
+
+@media only screen and (max-width: 600px) {
+  span{
+    display: none;
+  }
+
+  #nav a {
+    padding: 15px 0;
+    font-size: 25pt;
+  }
 }
 </style>

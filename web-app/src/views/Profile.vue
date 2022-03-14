@@ -35,12 +35,14 @@
         </div>
 
         <div class="profile-bottom">
-          <button class="appointmentBtn">
-            <router-link to="/appointment"
-              ><font-awesome-icon :icon="['fas', 'calendar-check']" />
-              Appointments</router-link
-            >
-          </button>
+         
+            <router-link to="/appointment">
+             <button class="appointmentBtn">
+              <font-awesome-icon :icon="['fas', 'calendar-check']" />
+              Appointments
+            </button>
+            </router-link>
+        
           <!-- <a href="#history"><font-awesome-icon :icon="['fas', 'medal']"/> Rewards</a> -->
           <button @click="editItem()">
             <font-awesome-icon :icon="['fas', 'pen']" /> Edit Profile
@@ -317,4 +319,9 @@ export default {
 .profile-bottom button:hover {
   background-color: rgb(208, 210, 216);
 }
+
+a{
+  width: 100%;
+}
+
 </style>
