@@ -52,12 +52,14 @@
                                   <v-text-field
                                       v-model="editedItem.title"
                                       label="Title"
+                                      @click="removeErrorMessage()"
                                   ></v-text-field>
                                 </v-col>
                                 <v-col cols="12" sm="12" md="12">
                                   <v-textarea
                                       v-model="editedItem.text"
                                       label="Description"
+                                      @click="removeErrorMessage()"
                                       ></v-textarea>
                                 </v-col>
                               </v-row>
@@ -68,6 +70,7 @@
                                     :items="cities"
                                     v-model="editedItem.city"
                                     label="City"
+                                    @click="removeErrorMessage()"
                                   ></v-select>
                                 </v-col>
                                 <v-col cols="12" sm="6" md="6">
@@ -75,6 +78,7 @@
                                     :items="bloodtypes"
                                     v-model="editedItem.bloodtype"
                                     label="Blood Type"
+                                    @click="removeErrorMessage()"
                                   ></v-select>
                                 </v-col>
                               </v-row>
@@ -97,6 +101,11 @@
                                   </div>
                                 </v-col>
                               </v-row>
+
+                              <p v-if="showError" id="error">
+                                <font-awesome-icon :icon="['fas', 'circle-exclamation']" />
+                                {{ errorMessage }}
+                              </p>
                             </v-card-text>
                             <v-card-actions>
                             <v-spacer></v-spacer>
@@ -164,6 +173,7 @@
                     </v-btn>
                     </template> -->
                 </v-data-table>
+                 
             </div>
         </div>
     </v-app>
@@ -171,6 +181,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import schema from '@/data/announcementSchema'
 
   export default {
     data: () => ({
@@ -206,7 +217,9 @@ import { mapGetters, mapActions } from 'vuex'
         city: ''
       },
       imagePreview: '',
-      fileUpload: ''
+      fileUpload: '',
+      showError: false,
+      errorMessage: ''
     }),
 
     computed: {
@@ -244,7 +257,7 @@ import { mapGetters, mapActions } from 'vuex'
     },
     
     methods: {
-        ...mapActions(["getAnnouncements", "createAnnouncement", "editAnnouncement","deleteAnnouncement"]),
+        ...mapActions(["getAnnouncements", "createAnnouncement", "editAnnouncement", "deleteAnnouncement"]),
 
       editItem (item) {
         this.file = '';
@@ -252,6 +265,7 @@ import { mapGetters, mapActions } from 'vuex'
         this.editedItem = Object.assign({}, item)
         this.loadImage(this.announcements[this.editedIndex].image);
         this.dialog = true
+        this.removeErrorMessage()
       },
 
       deleteItem (item) {
@@ -275,6 +289,8 @@ import { mapGetters, mapActions } from 'vuex'
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1
         })
+        this.removeErrorMessage()
+        this.removeImage()
       },
 
       closeDelete () {
@@ -285,7 +301,25 @@ import { mapGetters, mapActions } from 'vuex'
         })
       },
 
-      save () {
+      async save () {
+        var data = {
+          title: this.editedItem.title,
+          text: this.editedItem.text,
+          bloodtype: this.editedItem.bloodtype,
+          city: this.editedItem.city
+        }
+        
+        //validate
+        try {
+          const value = await schema.validateAsync(data);
+        } catch (error) {
+          this.errorMessage = error.message
+          this.showError = true
+          return
+        }
+
+        //if data are correct than continue...
+
         const formData = new FormData()
 
         for (const [key, value] of Object.entries(this.editedItem)) {
@@ -343,6 +377,23 @@ import { mapGetters, mapActions } from 'vuex'
       },
 
       createImage(file) {
+        //check if image is valid
+        const supportedTypes = ['image/jpeg', 'image/png', 'image/web']
+        if(!supportedTypes.includes(file.type)){
+          this.errorMessage = 'Invalid image type. Please select another one'
+          this.showError = true
+          return
+        }
+
+        //check if image size is bigger than 10MB
+        if(file.size > 10 * 1000000){
+          this.errorMessage = 'Image is too big. Please select image under 10MB'
+          this.showError = true
+          return
+        }
+
+        this.removeErrorMessage()
+
         //create/load image that is selected from input
         var reader = new FileReader();
 
@@ -368,6 +419,11 @@ import { mapGetters, mapActions } from 'vuex'
           this.imagePreview = ''
         }
       
+      },
+
+      removeErrorMessage(){
+        this.errorMessage = ''
+        this.showError = false
       },
         
     }
@@ -434,4 +490,7 @@ input[type="file"] {
   background-color: rgb(220, 222, 226);
 }
 
+#error {
+  color: rgb(201, 63, 63);
+}
 </style>
