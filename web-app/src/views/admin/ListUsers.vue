@@ -20,8 +20,7 @@
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
               <v-dialog v-model="dialog" max-width="500px">
-                <template v-slot:activator="{ on, attrs }">
-                </template>
+                <template v-slot:activator="{ on, attrs }"> </template>
                 <v-card>
                   <v-card-title>
                     <span class="text-h5">{{ formTitle }}</span>
@@ -45,7 +44,7 @@
                       </v-row>
                       <v-row>
                         <v-col cols="12" sm="6" md="4">
-                           <v-select
+                          <v-select
                             :items="cities"
                             v-model="editedItem.city"
                             label="City"
@@ -67,6 +66,12 @@
                         </v-col>
                       </v-row>
                     </v-container>
+                    <p v-if="showError" id="error">
+                      <font-awesome-icon
+                        :icon="['fas', 'circle-exclamation']"
+                      />
+                      {{ errorMessage }}
+                    </p>
                   </v-card-text>
 
                   <v-card-actions>
@@ -130,6 +135,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import schema from "@/data/editUserSchema";
 
 export default {
   data: () => ({
@@ -168,6 +174,8 @@ export default {
       role: "",
       city: "",
     },
+    showError: false,
+    errorMessage: "",
   }),
 
   computed: {
@@ -194,27 +202,6 @@ export default {
 
   methods: {
     ...mapActions(["getAllUsers", "editUser", "deleteUser"]),
-    //   initialize () {
-    //     // this.users = [
-    //     //   {
-    // 	// 		role: "admin",
-    // 	// 		bloodtype: "B+",
-    // 	// 		_id: "6206e44c23a2263794d1470a",
-    // 	// 		name: "Rilind Tasholli",
-    // 	// 		email: "rilindtasholli@gmail.com",
-    // 	// 		passwordChangedAt: null,
-    // 	// 	},
-    // 	// 	{
-    // 	// 		role: "user",
-    // 	// 		bloodtype: "AB-",
-    // 	// 		_id: "6207c2ec068fb807a8bbf990",
-    // 	// 		name: "Filan Fisteku",
-    // 	// 		email: "filan@gmail.com",
-    // 	// 		passwordChangedAt: null,
-    // 	// 	}
-    //     // ]
-    //     this.getAllUsers()
-    //   },
 
     editItem(item) {
       this.editedIndex = this.users.users.indexOf(item);
@@ -246,6 +233,7 @@ export default {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
       });
+      this.removeErrorMessage();
     },
 
     closeDelete() {
@@ -257,6 +245,22 @@ export default {
     },
 
     async save() {
+      var data = {
+        name: this.editedItem.name,
+        email: this.editedItem.email,
+        bloodtype: this.editedItem.bloodtype,
+        role: this.editedItem.role,
+        city: this.editedItem.city,
+      };
+      //validate
+      try {
+        const value = await schema.validateAsync(data);
+      } catch (error) {
+        this.errorMessage = error.message;
+        this.showError = true;
+        return;
+      }
+
       if (this.editedIndex > -1) {
         //edit user block code
         //Object.assign(this.users[this.editedIndex], this.editedItem)
@@ -283,6 +287,11 @@ export default {
         console.log(error);
       }
     },
+
+    removeErrorMessage() {
+      this.showError = false;
+      this.errorMessage = "";
+    },
   },
 };
 </script>
@@ -296,5 +305,9 @@ export default {
   align-items: center;
   /* border: dashed 2px red; */
   margin: 100px 0;
+}
+
+#error {
+  color: rgb(201, 63, 63);
 }
 </style>

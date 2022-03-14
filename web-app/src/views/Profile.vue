@@ -35,14 +35,13 @@
         </div>
 
         <div class="profile-bottom">
-         
-            <router-link to="/appointment">
-             <button class="appointmentBtn">
+          <router-link to="/appointment">
+            <button class="appointmentBtn">
               <font-awesome-icon :icon="['fas', 'calendar-check']" />
               Appointments
             </button>
-            </router-link>
-        
+          </router-link>
+
           <!-- <a href="#history"><font-awesome-icon :icon="['fas', 'medal']"/> Rewards</a> -->
           <button @click="editItem()">
             <font-awesome-icon :icon="['fas', 'pen']" /> Edit Profile
@@ -68,22 +67,26 @@
                     label="Full Name"
                   ></v-text-field>
                 </v-col>
-               <v-col cols="12" sm="6" md="4">
-                <v-select
-                  :items="cities"
-                  v-model="editedItem.city"
-                  label="City"
-                ></v-select>
-              </v-col>
-              <v-col cols="12" sm="6" md="4">
-                <v-select
-                  :items="bloodtypes"
-                  v-model="editedItem.bloodtype"
-                  label="Blood Type"
-                ></v-select>
-              </v-col>
+                <v-col cols="12" sm="6" md="4">
+                  <v-select
+                    :items="cities"
+                    v-model="editedItem.city"
+                    label="City"
+                  ></v-select>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                  <v-select
+                    :items="bloodtypes"
+                    v-model="editedItem.bloodtype"
+                    label="Blood Type"
+                  ></v-select>
+                </v-col>
               </v-row>
             </v-container>
+            <p v-if="showError" id="error">
+              <font-awesome-icon :icon="['fas', 'circle-exclamation']" />
+              {{ errorMessage }}
+            </p>
           </v-card-text>
 
           <v-card-actions>
@@ -99,6 +102,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import schema from "@/data/editProfileSchema";
 
 export default {
   data() {
@@ -107,8 +111,10 @@ export default {
       editedItem: {
         name: "",
         bloodtype: "",
-        city: ""
+        city: "",
       },
+      showError: false,
+      errorMessage: "",
     };
   },
   created() {
@@ -134,8 +140,18 @@ export default {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
       });
+      this.removeErrorMessage();
     },
     async save() {
+      //validate
+      try {
+        const value = await schema.validateAsync(this.editedItem);
+      } catch (error) {
+        this.errorMessage = error.message;
+        this.showError = true;
+        return;
+      }
+
       this.UpdateMe(this.editedItem);
       this.close();
 
@@ -161,6 +177,11 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+
+    removeErrorMessage() {
+      this.errorMessage = "";
+      this.showError = false;
     },
   },
 };
@@ -320,8 +341,11 @@ export default {
   background-color: rgb(208, 210, 216);
 }
 
-a{
+a {
   width: 100%;
 }
 
+#error {
+  color: rgb(201, 63, 63);
+}
 </style>
